@@ -20,7 +20,7 @@ tightPrimeEmbedding i | i < 2 = (0,i,0)
  -} 
 checksum :: Integer -> String
 checksum 0 = "0"
-checksum i = binRep (crossSum i)
+checksum i = binRep (crossSum $ abs i)
 	where	binRep 0 = ""
 		binRep n
 			| even n = binRep ( n `div` 2) ++ "0"
@@ -58,16 +58,18 @@ filterForFrequency :: String -> Int -> [Char]
 filterForFrequency [] _ = []
 filterForFrequency s n  = removeDuplicates $ frequency s n 
 
+{- powerOfTwo
+ - determines if integer is power of two
+-}
+powerOfTwo :: Int -> Bool
+powerOfTwo 0 = False
+powerOfTwo 1 = True
+powerOfTwo n = ( n `mod` 2 == 0) && powerOfTwo (n `div` 2)
 
 {- isPowerOfTwo
- - Returns true if the product of count of each lower/uppercase vowel
- - is a number with the power of two
- -} 
+ - sums up all lowercase vowels and multiplys them with the sum of all uppercase vowels
+ - and checks if the result is a power of two
+-}
 isPowerOfTwo :: String -> Bool
-isPowerOfTwo s = power tuples	
-	where	vocals = filter (`elem` ['a','e','i','o','u','A','E','I','O','U']) s
-		tuples = product $ map (\x -> length x) $ group $ sort vocals
-		power n | n == 1 = True
-			| n > 1 && n `mod` 2 == 0 = power ( n `div` 2)
-			| otherwise = False
+isPowerOfTwo s = powerOfTwo $ length (filter (`elem` ['a','e','i','o','u']) s) * length (filter (`elem` ['A','E','I','O','U']) s)
 
