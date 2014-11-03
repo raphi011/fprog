@@ -17,6 +17,8 @@ words' t = words $ concat t
  - gets the length of the longest word from the text
  -}
 maxWordLength :: Text -> Integer
+maxWordLength [] = 0
+maxWordLength [""] = 0
 maxWordLength t = fromIntegral(length $ maximumBy (comparing length) $ words' t)
 
 {- countUniques 
