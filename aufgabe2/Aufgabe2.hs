@@ -9,8 +9,6 @@ words' t = words $ concat t
 
 maxWordLength :: Text -> Integer
 maxWordLength t = fromIntegral(length $ maximumBy (comparing length) $  words' t)
--- maxWordLength t = fromIntegral(length $ maximumBy (\x y -> (length x < length y) $  words' t)
---maxWordLength t = fromIntegral(length $ maximumBy (compare `on` length) $  words' t)
 
 countUniques :: (Eq a) => [a] -> Int
 countUniques = length . nub
