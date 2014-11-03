@@ -21,8 +21,13 @@ numWordOcc t n | n < 1 = -1
 numWordOcc t n =  fromIntegral(countUniques $ filter (hasLength n) $ words' t)
 
 reverseCheck :: Text -> Bool
-reverseCheck t = False
+reverseCheck [] = False
+reverseCheck (x:xs) =  x == reverse x || reverseCheck xs
 
 formatText :: Text -> Integer -> Text
 formatText t n | n < 1 = t
+formatText t n = format (concat t) n 
 
+format :: String -> Integer -> Text
+format [] n = []
+format t n = [take (fromIntegral n) t] ++ format (drop (fromIntegral n) t) n
