@@ -52,7 +52,7 @@ reverseCheck [] = False
 reverseCheck (x:xs) =  x == reverse x || containsReverse xs x || reverseCheck xs
 
 containsReverse :: Text -> String -> Bool
-containsReverse [] = False
+containsReverse [] s = False
 containsReverse (x:xs) s = reverse x == s || containsReverse xs s
 
 {- formatText

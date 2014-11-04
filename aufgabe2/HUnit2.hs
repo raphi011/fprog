@@ -45,7 +45,7 @@ test3 = TestLabel "Test: reverseCheck" $ (
         TestCase $ assertEqual "reverseCheck [\"ab\"]" (False) (reverseCheck ["ab"]),
         TestCase $ assertEqual "reverseCheck [\"abba\"]" (True) (reverseCheck ["abba"]),
         TestCase $ assertEqual "reverseCheck [\"abba\", \"ab\"]" (True) (reverseCheck ["abba", "ab"]),
-        TestCase $ assertEqual "reverseCheck [\"ba\", \"ab\"]" (True) (reverseCheck ["ba", "ab"])
+        TestCase $ assertEqual "reverseCheck [\"ba\", \"ab\"]" (True) (reverseCheck ["ba", "ab"]),
         TestCase $ assertEqual "reverseCheck [\"ab\", \"ab\", \"bvc\", \"ba\"]" (True) (reverseCheck ["ab", "ab", "bvc", "ba"])
         ]
     )
