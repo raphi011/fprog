@@ -39,7 +39,6 @@ hasLength l s = length s == fromIntegral(l)
  - counts the distinct strings with
  - length n from an array
  -}
-
 numWordOcc :: Text -> Integer -> Integer
 numWordOcc t n | n < 1 = -1
 numWordOcc t n = fromIntegral(countUniques $ filter (hasLength n) $ words' t)
@@ -51,6 +50,9 @@ reverseCheck :: Text -> Bool
 reverseCheck [] = False
 reverseCheck (x:xs) =  x == reverse x || containsReverse xs x || reverseCheck xs
 
+{- containsReverse
+ - checks if a list contains the reverse of a string
+ -}
 containsReverse :: Text -> String -> Bool
 containsReverse [] s = False
 containsReverse (x:xs) s = reverse x == s || containsReverse xs s
