@@ -47,7 +47,11 @@ numWordOcc t n = fromIntegral(countUniques $ filter (hasLength n) $ words' t)
  -}
 reverseCheck :: Text -> Bool
 reverseCheck [] = False
-reverseCheck (x:xs) =  x == reverse x || reverseCheck xs
+reverseCheck (x:xs) =  x == reverse x || containsReverse xs x || reverseCheck xs
+
+containsReverse :: Text -> String -> Bool
+containsReverse [] = False
+containsReverse (x:xs) s = reverse x == s || containsReverse xs s
 
 {- formatText
  - takes a text and returns
