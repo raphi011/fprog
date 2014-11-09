@@ -11,7 +11,7 @@ type Text = [Line]
  - and splits them up again
  -}
 words' :: Text -> [String]
-words' t = words $ concat t
+words' t = words . concat t
 
 {- maxWordLength
  - gets the length of the longest word from the text
@@ -33,7 +33,7 @@ countUniques = length . nub
  - true if an array has the length n 
  -}
 hasLength :: Integer -> String -> Bool
-hasLength l s = length s == fromIntegral(l)
+hasLength l s = length s == fromIntegral l
 
 {- numWordOcc
  - counts the distinct strings with
@@ -42,7 +42,7 @@ hasLength l s = length s == fromIntegral(l)
 
 numWordOcc :: Text -> Integer -> Integer
 numWordOcc t n | n < 1 = -1
-numWordOcc t n = fromIntegral(countUniques $ filter (hasLength n) $ words' t)
+numWordOcc t n = fromIntegral $ countUniques $ filter (hasLength n) $ words' t
 
 {- reverseCheck
  - 
