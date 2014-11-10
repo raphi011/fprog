@@ -6,7 +6,7 @@
 import Aufgabe3
 import Test.HUnit
 
-main = runTestTT $ TestList [test1,test2,test3]--,test4,test5]
+main = runTestTT $ TestList [test1,test2,test3,test4,test5]
 
 
 
@@ -66,14 +66,46 @@ test3 = TestLabel "Test: minNumOfCoins" $ (
         ]
     )
 
---test4 = TestLabel "Test: numOfSplits" $ (
---        TestList [
-        
---        ]
---    )
+test4 = TestLabel "Test: numOfSplits" $ (
+        TestList [
+        TestCase $ assertEqual "numOfSplits 0" (1) (numOfSplits 0),
+        TestCase $ assertEqual "numOfSplits 501" (-1) (numOfSplits 501),
+        TestCase $ assertEqual "numOfSplits 1" (1) (numOfSplits 1),
+        TestCase $ assertEqual "numOfSplits (-1)" (1) (numOfSplits (-1)),
+        TestCase $ assertEqual "numOfSplits 5" (4) (numOfSplits 5),
+        TestCase $ assertEqual "numOfSplits 10" (11) (numOfSplits 10),
+        TestCase $ assertEqual "numOfSplits (-20)" (41) (numOfSplits (-20)),
+        TestCase $ assertEqual "numOfSplits 100" (4563) (numOfSplits 100),
+        TestCase $ assertEqual "numOfSplits 200" (73682) (numOfSplits 200),
+        TestCase $ assertEqual "numOfSplits 500" (6295434) (numOfSplits 500)
+        ]
+    )
 
---test5 = TestLabel "Test: change" $ (
---        TestList [
-        
---        ]
---    )
+
+test5 = TestLabel "Test: change" $ (
+        TestList [
+        TestCase $ assertBool "change 5 3" (checkChangeResult 5 3 (change 5 3)),
+        TestCase $ assertBool "change 5 3" (checkChangeResult 5 3 (change 5 3)),
+        TestCase $ assertEqual "change 5 2" ([]) (change 5 2),
+        TestCase $ assertBool "change 10 2" (checkChangeResult 10 2 (change 10 2)),
+        TestCase $ assertBool "change 100 2" (checkChangeResult 100 2 (change 100 2)),
+        TestCase $ assertBool "change (-100) (-2)" (checkChangeResult 100 2 (change (-100) (-2))),
+        TestCase $ assertEqual "change (-501) 51" ([]) (change (-501) 51),
+        TestCase $ assertEqual "change (501) 51" ([]) (change (501) 51),
+        TestCase $ assertBool "change (-99) (-8)" (checkChangeResult 99 8 (change (-99) (-8)))
+        ]
+    )
+
+
+
+
+checkChangeResult :: Integer -> Int -> [Integer] -> Bool
+checkChangeResult amount size coins = ((abs amount) == (sum coins)) && (isSortedBy (>=) coins) && (size == (length coins))
+
+
+isSortedBy :: (a -> a -> Bool) -> [a] -> Bool
+isSortedBy lte = loop
+  where
+    loop []       = True
+    loop [_]      = True
+    loop (x:y:zs) = (x `lte` y) && loop (y:zs)
