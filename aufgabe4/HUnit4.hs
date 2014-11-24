@@ -6,7 +6,7 @@
 import Aufgabe4
 import Test.HUnit
 
-main = runTestTT $ TestList [test1] --,test2]
+main = runTestTT $ TestList [test1,test2]
 
 test1 = TestLabel "Test: Teil1" $ (
         TestList [
@@ -16,13 +16,13 @@ test1 = TestLabel "Test: Teil1" $ (
         TestCase $ assertBool "minusN (S (S Z)) (S (S (S Z)))" (equalNat (Z) (minusN (S (S Z)) (S (S (S Z))))),
         TestCase $ assertBool "minusN (Z) (Z)" (equalNat (Z) (minusN (Z) (Z))),
         TestCase $ assertBool "minusN (Z) (S Z)" (equalNat (Z) (minusN (Z) (S Z))),
-        TestCase $ assertBool "minusN (S Z) (Z)" (equalNat (S Z) (minusN (S Z) (Z))), 
+        TestCase $ assertBool "minusN (S Z) (Z)" (equalNat (S Z) (minusN (S Z) (Z))),
 
         TestCase $ assertBool "timesN (S (S Z)) (S (S (S Z)))" (equalNat (S (S (S (S (S (S Z)))))) (timesN (S (S Z)) (S (S (S Z))))),
         TestCase $ assertBool "timesN (Z) (Z)" (equalNat (Z) (timesN (Z) (Z))),
         TestCase $ assertBool "timesN (Z) (S Z)" (equalNat (Z) (timesN (Z) (S Z))),
         TestCase $ assertBool "timesN (S Z) (Z)" (equalNat (Z) (timesN (S Z) (Z))),
-        TestCase $ assertBool "timesN (S Z) (S Z)" (equalNat (S Z) (timesN (S Z) (S Z))), 
+        TestCase $ assertBool "timesN (S Z) (S Z)" (equalNat (S Z) (timesN (S Z) (S Z))),
 
         TestCase $ assertBool "divN (S (S Z)) (S (S (S Z)))" (equalNat (Z) (divN (S (S Z)) (S (S (S Z))))),
         TestCase $ assertBool "divN (Z) (S Z)" (equalNat (Z) (divN (Z) (S Z))),
@@ -69,79 +69,79 @@ test1 = TestLabel "Test: Teil1" $ (
         ]
     )
 
---test2 = TestLabel "Test: Teil2" $ (
---        TestList [
---        TestCase $ assertEqual "isCanPR (S (S Z),S (S Z))" (False) (isCanPR (S (S Z),S (S Z))),
---        TestCase $ assertEqual "isCanPR (S (S Z),S Z)" (True) (isCanPR (S (S Z),S Z)),
---        TestCase $ assertEqual "isCanPR ((S Z), S (S Z))" (True) (isCanPR ((S Z), S (S Z))),
---        TestCase $ assertEqual "isCanPR ((Z), (Z))" (False) (isCanPR ((Z), (Z))),
---        TestCase $ assertEqual "isCanPR ((S Z), (Z))" (False) (isCanPR ((S Z), (Z))),
---        TestCase $ assertEqual "isCanPR ((Z), (S Z))" (True) (isCanPR ((Z), (S Z))),
+test2 = TestLabel "Test: Teil2" $ (
+        TestList [
+        TestCase $ assertEqual "isCanPR (S (S Z),S (S Z))" (False) (isCanPR (S (S Z),S (S Z))),
+        TestCase $ assertEqual "isCanPR (S (S Z),S Z)" (True) (isCanPR (S (S Z),S Z)),
+        TestCase $ assertEqual "isCanPR ((S Z), S (S Z))" (True) (isCanPR ((S Z), S (S Z))),
+        TestCase $ assertEqual "isCanPR ((Z), (Z))" (False) (isCanPR ((Z), (Z))),
+        TestCase $ assertEqual "isCanPR ((S Z), (Z))" (False) (isCanPR ((S Z), (Z))),
+        TestCase $ assertEqual "isCanPR ((Z), (S Z))" (True) (isCanPR ((Z), (S Z))),
 
---        TestCase $ assertBool "mkCanPR (S (S Z),S (S Z))" (equalPR (S Z,S Z) (mkCanPR (S (S Z),S (S Z)))),
---        TestCase $ assertBool "mkCanPR (S (S (S Z)),S (S Z))" (equalPR (S (S (S Z)),S (S Z)) (mkCanPR (S (S (S Z)),S (S Z)))),
---        TestCase $ assertBool "mkCanPR ((S Z),(S Z))" (equalPR (S Z,S Z) (mkCanPR ((S Z),(S Z)))),
---        TestCase $ assertBool "mkCanPR (S (S Z),(S Z))" (equalPR (S (S Z),S Z) (mkCanPR (S (S Z),(S Z)))),
---        TestCase $ assertBool "mkCanPR (S (S Z),(Z))" (equalPR (Z,Z) (mkCanPR (S (S Z),(Z)))),
+        TestCase $ assertBool "mkCanPR (S (S Z),S (S Z))" (equalPR (S Z,S Z) (mkCanPR (S (S Z),S (S Z)))),
+        TestCase $ assertBool "mkCanPR (S (S (S Z)),S (S Z))" (equalPR (S (S (S Z)),S (S Z)) (mkCanPR (S (S (S Z)),S (S Z)))),
+        TestCase $ assertBool "mkCanPR ((S Z),(S Z))" (equalPR (S Z,S Z) (mkCanPR ((S Z),(S Z)))),
+        TestCase $ assertBool "mkCanPR (S (S Z),(S Z))" (equalPR (S (S Z),S Z) (mkCanPR (S (S Z),(S Z)))),
+        TestCase $ assertBool "mkCanPR (S (S Z),(Z))" (equalPR (Z,Z) (mkCanPR (S (S Z),(Z)))),
 
---        TestCase $ assertBool "plusPR (S Z,S (S (S Z))) (S Z,S Z)" (equalPR (S (S (S (S Z))),(S (S (S Z)))) (plusPR (S Z,S (S (S Z))) (S Z,S Z))),
---        TestCase $ assertBool "plusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z)))" (equalPR (S (S Z), S Z) (plusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z))))),
---        TestCase $ assertBool "plusPR (S Z, S (S Z)) (S Z, S (S Z))" (equalPR (S Z ,S Z) (plusPR (S Z, S (S Z)) (S Z, S (S Z)))),
---        TestCase $ assertBool "plusPR (Z, S (S Z)) (S Z, S (S Z))" (equalPR (S Z, S (S Z)) (plusPR (Z, S (S Z)) (S Z, S (S Z)))),
+        TestCase $ assertBool "plusPR (S Z,S (S (S Z))) (S Z,S Z)" (equalPR (S (S (S (S Z))),(S (S (S Z)))) (plusPR (S Z,S (S (S Z))) (S Z,S Z))),
+        TestCase $ assertBool "plusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z)))" (equalPR (S (S Z), S Z) (plusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z))))),
+        TestCase $ assertBool "plusPR (S Z, S (S Z)) (S Z, S (S Z))" (equalPR (S Z ,S Z) (plusPR (S Z, S (S Z)) (S Z, S (S Z)))),
+        TestCase $ assertBool "plusPR (Z, S (S Z)) (S Z, S (S Z))" (equalPR (S Z, S (S Z)) (plusPR (Z, S (S Z)) (S Z, S (S Z)))),
 
---        TestCase $ assertBool "minusPR (S Z,S Z) (S Z,S (S (S Z)))" (equalPR (S (S Z),(S (S (S Z)))) (minusPR (S Z,S Z) (S Z,S (S (S Z))))),
---        TestCase $ assertBool "minusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z)))" (equalPR (Z, S Z) (minusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z))))),
---        TestCase $ assertBool "minusPR (S Z, S (S Z)) (Z, S (S Z))" (equalPR (S Z, S (S Z)) (minusPR (S Z, S (S Z)) (Z, S (S Z)))),
+        TestCase $ assertBool "minusPR (S Z,S Z) (S Z,S (S (S Z)))" (equalPR (S (S Z),(S (S (S Z)))) (minusPR (S Z,S Z) (S Z,S (S (S Z))))),
+        TestCase $ assertBool "minusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z)))" (equalPR (Z, S Z) (minusPR (S (S Z), S (S Z)) (S (S (S Z)), S (S (S Z))))),
+        TestCase $ assertBool "minusPR (S Z, S (S Z)) (Z, S (S Z))" (equalPR (S Z, S (S Z)) (minusPR (S Z, S (S Z)) (Z, S (S Z)))),
 
---        TestCase $ assertBool "timesPR (S Z,S (S Z)) (S Z,S (S Z))" (equalPR (S Z,S (S (S (S Z)))) (timesPR (S Z,S (S Z)) (S Z,S (S Z)))),
---        TestCase $ assertBool "timesPR (Z, S (S Z)) (S Z, S (S Z))" (equalPR (Z, S Z) (timesPR (Z, S (S Z)) (S Z, S (S Z)))),
+        TestCase $ assertBool "timesPR (S Z,S (S Z)) (S Z,S (S Z))" (equalPR (S Z,S (S (S (S Z)))) (timesPR (S Z,S (S Z)) (S Z,S (S Z)))),
+        TestCase $ assertBool "timesPR (Z, S (S Z)) (S Z, S (S Z))" (equalPR (Z, S Z) (timesPR (Z, S (S Z)) (S Z, S (S Z)))),
 
---        TestCase $ assertBool "divPR (S Z,S (S Z)) (S Z,S (S Z))" (equalPR (S Z,S Z) (divPR (S Z,S (S Z)) (S Z,S (S Z)))),
---        TestCase $ assertBool "divPR (Z,S (S Z)) (S Z,S (S Z))" (equalPR (Z,S Z) (divPR (Z,S (S Z)) (S Z,S (S Z)))),
---        TestCase $ assertBool "divPR (S Z,S (S Z)) (Z,S (S Z))" (equalPR (Z,Z) (divPR (S Z,S (S Z)) (Z,S (S Z)))),
+        TestCase $ assertBool "divPR (S Z,S (S Z)) (S Z,S (S Z))" (equalPR (S Z,S Z) (divPR (S Z,S (S Z)) (S Z,S (S Z)))),
+        TestCase $ assertBool "divPR (Z,S (S Z)) (S Z,S (S Z))" (equalPR (Z,S Z) (divPR (Z,S (S Z)) (S Z,S (S Z)))),
+        TestCase $ assertBool "divPR (S Z,S (S Z)) (Z,S (S Z))" (equalPR (Z,Z) (divPR (S Z,S (S Z)) (Z,S (S Z)))),
 
---        TestCase $ assertEqual "eqPR (S (S Z),S (S Z)) (S Z,S Z)" (True) (eqPR (S (S Z),S (S Z)) (S Z,S Z)),
---        TestCase $ assertEqual "eqPR (Z, S (S (S Z))) (Z, S Z)" (True) (eqPR (Z, S (S (S Z))) (Z, S Z)),
---        TestCase $ assertEqual "eqPR (S (S Z),Z) (S Z,S (S Z))" (False) (eqPR (S (S Z),Z) (S Z,S (S Z))),
---        TestCase $ assertEqual "eqPR (S (S Z), S Z) (S Z, S (S Z))" (False) (eqPR (S (S Z),S Z) (S Z,S (S Z))),
+        TestCase $ assertEqual "eqPR (S (S Z),S (S Z)) (S Z,S Z)" (True) (eqPR (S (S Z),S (S Z)) (S Z,S Z)),
+        TestCase $ assertEqual "eqPR (Z, S (S (S Z))) (Z, S Z)" (True) (eqPR (Z, S (S (S Z))) (Z, S Z)),
+        TestCase $ assertEqual "eqPR (S (S Z),Z) (S Z,S (S Z))" (False) (eqPR (S (S Z),Z) (S Z,S (S Z))),
+        TestCase $ assertEqual "eqPR (S (S Z), S Z) (S Z, S (S Z))" (False) (eqPR (S (S Z),S Z) (S Z,S (S Z))),
 
---        TestCase $ assertEqual "neqPR (S (S Z),Z) (S Z,S (S Z))" (False) (neqPR (S (S Z),Z) (S Z,S (S Z))),
---        TestCase $ assertEqual "neqPR (Z, S (S (S Z))) (Z, S Z)" (False) (neqPR (Z, S (S (S Z))) (Z, S Z)),
---        TestCase $ assertEqual "neqPR (S (S Z), S Z) (S Z, S (S Z))" (True) (neqPR (S (S Z),S Z) (S Z,S (S Z))),
---        TestCase $ assertEqual "neqPR (S (S Z),S (S Z)) (S Z,S Z)" (False) (neqPR (S (S Z),S (S Z)) (S Z,S Z)),
+        TestCase $ assertEqual "neqPR (S (S Z),Z) (S Z,S (S Z))" (False) (neqPR (S (S Z),Z) (S Z,S (S Z))),
+        TestCase $ assertEqual "neqPR (Z, S (S (S Z))) (Z, S Z)" (False) (neqPR (Z, S (S (S Z))) (Z, S Z)),
+        TestCase $ assertEqual "neqPR (S (S Z), S Z) (S Z, S (S Z))" (True) (neqPR (S (S Z),S Z) (S Z,S (S Z))),
+        TestCase $ assertEqual "neqPR (S (S Z),S (S Z)) (S Z,S Z)" (False) (neqPR (S (S Z),S (S Z)) (S Z,S Z)),
 
---        TestCase $ assertEqual "grPR (S Z,S Z) (S Z,S (S (S Z)))" (True) (grPR (S Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (True) (grPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grPR (Z,S Z) (S Z,S (S (S Z)))" (False) (grPR (Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grPR (S Z,S (S (S Z))) (S Z,S Z)" (False) (grPR (S Z,S (S (S Z))) (S Z,S Z)),
+        TestCase $ assertEqual "grPR (S Z,S Z) (S Z,S (S (S Z)))" (True) (grPR (S Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (True) (grPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grPR (Z,S Z) (S Z,S (S (S Z)))" (False) (grPR (Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grPR (S Z,S (S (S Z))) (S Z,S Z)" (False) (grPR (S Z,S (S (S Z))) (S Z,S Z)),
 
---        TestCase $ assertEqual "lePR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))" (False) (lePR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))),
---        TestCase $ assertEqual "lePR (S Z,S Z) (S Z,S (S (S Z)))" (False) (lePR (S Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "lePR (S Z,S(S Z)) (S Z,S (S (S Z)))" (False) (lePR (S Z,S(S Z)) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "lePR (Z,S Z) (S Z,S (S (S Z)))" (True) (lePR (Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "lePR (S Z,S (S (S Z))) (S Z,S Z)" (True) (lePR (S Z,S (S (S Z))) (S Z,S Z)),
+        TestCase $ assertEqual "lePR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))" (False) (lePR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))),
+        TestCase $ assertEqual "lePR (S Z,S Z) (S Z,S (S (S Z)))" (False) (lePR (S Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "lePR (S Z,S(S Z)) (S Z,S (S (S Z)))" (False) (lePR (S Z,S(S Z)) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "lePR (Z,S Z) (S Z,S (S (S Z)))" (True) (lePR (Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "lePR (S Z,S (S (S Z))) (S Z,S Z)" (True) (lePR (S Z,S (S (S Z))) (S Z,S Z)),
 
---        TestCase $ assertEqual "grEqPR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))" (True) (grEqPR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))),
---        TestCase $ assertEqual "grEqPR (S Z,S Z) (S Z,S (S (S Z)))" (True) (grEqPR (S Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (True) (grEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grEqPR (Z,S Z) (S Z,S (S (S Z)))" (False) (grEqPR (Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "grEqPR (S Z,S (S (S Z))) (S Z,S Z)" (False) (grEqPR (S Z,S (S (S Z))) (S Z,S Z)),
+        TestCase $ assertEqual "grEqPR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))" (True) (grEqPR (S Z,S (S Z)) (S (S Z),S (S (S (S Z))))),
+        TestCase $ assertEqual "grEqPR (S Z,S Z) (S Z,S (S (S Z)))" (True) (grEqPR (S Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (True) (grEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grEqPR (Z,S Z) (S Z,S (S (S Z)))" (False) (grEqPR (Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "grEqPR (S Z,S (S (S Z))) (S Z,S Z)" (False) (grEqPR (S Z,S (S (S Z))) (S Z,S Z)),
 
---        TestCase $ assertEqual "leEqPR (S (S Z),S (S Z)) (S Z,S Z)" (True) (leEqPR (S (S Z),S (S Z)) (S Z,S Z)),
---        TestCase $ assertEqual "leEqPR (S Z,S Z) (S Z,S (S (S Z)))" (False) (leEqPR (S Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "leEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (False) (leEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "leEqPR (Z,S Z) (S Z,S (S (S Z)))" (True) (leEqPR (Z,S Z) (S Z,S (S (S Z)))),
---        TestCase $ assertEqual "leEqPR (S Z,S (S (S Z))) (S Z,S Z)" (True) (leEqPR (S Z,S (S (S Z))) (S Z,S Z))
---        ]
---    )
+        TestCase $ assertEqual "leEqPR (S (S Z),S (S Z)) (S Z,S Z)" (True) (leEqPR (S (S Z),S (S Z)) (S Z,S Z)),
+        TestCase $ assertEqual "leEqPR (S Z,S Z) (S Z,S (S (S Z)))" (False) (leEqPR (S Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "leEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))" (False) (leEqPR (S Z,S(S Z)) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "leEqPR (Z,S Z) (S Z,S (S (S Z)))" (True) (leEqPR (Z,S Z) (S Z,S (S (S Z)))),
+        TestCase $ assertEqual "leEqPR (S Z,S (S (S Z))) (S Z,S Z)" (True) (leEqPR (S Z,S (S (S Z))) (S Z,S Z))
+        ]
+    )
 
---equalPR :: PosRat -> PosRat -> Bool
---equalPR x y = equalNat m1 m2 && equalNat n1 n2
---    where
---        m1 = fst x
---        n1 = snd x
---        m2 = fst y
---        n2 = snd y
+equalPR :: PosRat -> PosRat -> Bool
+equalPR x y = equalNat m1 m2 && equalNat n1 n2
+    where
+        m1 = fst x
+        n1 = snd x
+        m2 = fst y
+        n2 = snd y
 
 equalNat :: Nat -> Nat -> Bool
 equalNat x y = a == b

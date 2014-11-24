@@ -20,7 +20,7 @@
 > divN :: Nat -> Nat -> Nat
 > divN Z _ = Z
 > divN n m | leN n m = Z 
-> divN n m = plusN (S Z) $ minusN n m
+> divN n m = plusN (S Z) $ divN (minusN n m) m
 
 > modN :: Nat -> Nat -> Nat
 > modN Z _ = Z
@@ -29,7 +29,7 @@
 > powerN :: Nat -> Nat -> Nat
 > powerN _ Z = (S Z)
 > powerN n (S Z) = n
-> powerN n (S m) = plusN n $ powerN n (m)
+> powerN n (S m) = timesN n $ powerN n m
 
 > eqN :: Nat -> Nat -> Bool 
 > eqN Z Z = True
@@ -54,7 +54,10 @@
 > leEqN :: Nat -> Nat -> Bool
 > leEqN n m = not $ grN n m 
 
+> type PosRat = (Nat, Nat)
 
+> -- isCanPR :: PosRat -> Bool
+> --
 
-
- 
+> -- mkCanPR :: PosRat -> PosRat
+> 
