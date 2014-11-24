@@ -56,8 +56,14 @@
 
 > type PosRat = (Nat, Nat)
 
-> -- isCanPR :: PosRat -> Bool
-> --
+> isCanPR :: PosRat -> Bool
+> isCanPR (Z, S Z) = True
+> isCanPR (_, Z) = False 
+> isCanPR (n,m) = eqN (ggtPR (n,m)) (S Z)
 
+> ggtPR :: PosRat -> Nat 
+> ggtPR (n,Z) = n
+> ggtPR (n,m) = ggtPR (m,modN n m)
+ 
 > -- mkCanPR :: PosRat -> PosRat
 > 
