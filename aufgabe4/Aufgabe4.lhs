@@ -65,5 +65,39 @@
 > ggtPR (n,Z) = n
 > ggtPR (n,m) = ggtPR (m,modN n m)
  
-> -- mkCanPR :: PosRat -> PosRat
-> 
+> mkCanPR :: PosRat -> PosRat
+> mkCanPR (_,Z) = (Z,Z)
+> mkCanPR r | isCanPR r = r
+> mkCanPR (n,m) = (divN n ggt, divN m ggt)
+> 	where ggt = ggtPR (n,m) 
+
+> plusPR :: PosRat -> PosRat -> PosRat
+> plusPR (n1, m1) (n2, m2) = mkCanPR (plusN (timesN n1 m2) (timesN n2 m1), timesN m1 m2)
+
+> minusPR :: PosRat -> PosRat -> PosRat
+> minusPR (n1, m1) (n2, m2) = mkCanPR (minusN (timesN n1 m2) (timesN n2 m1), timesN m1 m2)
+
+> timesPR :: PosRat -> PosRat -> PosRat
+> timesPR (n1, m1) (n2, m2) = mkCanPR (timesN n1 n2, timesN m1 m2)
+
+> divPR :: PosRat -> PosRat -> PosRat
+> divPR	(n1, m1) (n2, m2) = mkCanPR (timesN n1 m2, timesN n2 m1)
+
+> eqPR :: PosRat -> PosRat -> Bool
+> eqPR (n1, m1) (n2, m2) = neqN m1 Z && neqN m2 Z && eqN (timesN n1 m2) (timesN n2 m1)
+
+> neqPR :: PosRat -> PosRat -> Bool
+> neqPR (n1, m1) (n2, m2) = neqN m1 Z && neqN m2 Z && not (eqN (timesN n1 m2) (timesN n2 m1))
+
+> grPR :: PosRat -> PosRat -> Bool
+> grPR (n1, n2) (n3, n4) = grN (timesN n1 n4) (timesN n2 n3)
+
+> lePR :: PosRat -> PosRat -> Bool
+> lePR (n1, n2) (n3, n4) = leN (timesN n1 n4) (timesN n2 n3)
+
+> grEqPR :: PosRat -> PosRat -> Bool
+> grEqPR b1 b2 = eqPR b1 b2 || (grPR b1 b2)
+
+> leEqPR :: PosRat -> PosRat -> Bool
+> leEqPR b1 b2 = eqPR b1 b2 || (lePR b1 b2)
+
