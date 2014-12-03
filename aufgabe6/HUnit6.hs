@@ -7,7 +7,7 @@ import Aufgabe6
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3,test4,test5,test6]
+main = runTestTT $ TestList [test1,test2,test3] --,,test4,test5,test6]
 
 
 
@@ -82,76 +82,76 @@ test3 = TestLabel "Test: check Eq" $ (
     ]
     )
 
-test4 = TestLabel "Test: check OrdMat" $ (
-    TestList [
-    TestCase $ assertEqual "lsm m1 m1" (False) (lsm m1 m1),
-    TestCase $ assertEqual "lsm m1 m2" (True) (lsm m1 m2),
-    TestCase $ assertEqual "lsm m1 m3" (False) (lsm m1 m3),
-    TestCase $ assertEqual "lsm m2 m1" (False) (lsm m2 m1),
-    TestCase $ assertEqual "lsm m2 m2" (False) (lsm m2 m2),
-    TestCase $ assertEqual "lsm m2 m3" (False) (lsm m2 m3),
-    TestCase $ assertEqual "lsm m3 m1" (False) (lsm m3 m1),
-    TestCase $ assertEqual "lsm m3 m2" (False) (lsm m3 m2),
-    TestCase $ assertEqual "lsm m3 m3" (False) (lsm m3 m3),
-    TestCase $ assertEqual "lem m1 m1" (True) (lem m1 m1),
-    TestCase $ assertEqual "lem m1 m2" (True) (lem m1 m2),
-    TestCase $ assertEqual "lem m1 m3" (True) (lem m1 m3),
-    TestCase $ assertEqual "lem m2 m1" (False) (lem m2 m1),
-    TestCase $ assertEqual "lem m2 m2" (True) (lem m2 m2),
-    TestCase $ assertEqual "lem m2 m3" (False) (lem m2 m3),
-    TestCase $ assertEqual "lem m3 m1" (False) (lem m3 m1),
-    TestCase $ assertEqual "lem m3 m2" (True) (lem m3 m2),
-    TestCase $ assertEqual "lem m3 m3" (True) (lem m3 m3),
-    TestCase $ assertEqual "grm m1 m1" (False) (grm m1 m1),
-    TestCase $ assertEqual "grm m1 m2" (False) (grm m1 m2),
-    TestCase $ assertEqual "grm m1 m3" (False) (grm m1 m3),
-    TestCase $ assertEqual "grm m2 m1" (True) (grm m2 m1),
-    TestCase $ assertEqual "grm m2 m2" (False) (grm m2 m2),
-    TestCase $ assertEqual "grm m2 m3" (False) (grm m2 m3),
-    TestCase $ assertEqual "grm m3 m1" (False) (grm m3 m1),
-    TestCase $ assertEqual "grm m3 m2" (False) (grm m3 m2),
-    TestCase $ assertEqual "grm m3 m3" (False) (grm m3 m3),
-    TestCase $ assertEqual "gem m1 m1" (True) (gem m1 m1),
-    TestCase $ assertEqual "gem m1 m2" (False) (gem m1 m2),
-    TestCase $ assertEqual "gem m1 m3" (False) (gem m1 m3),
-    TestCase $ assertEqual "gem m2 m1" (True) (gem m2 m1),
-    TestCase $ assertEqual "gem m2 m2" (True) (gem m2 m2),
-    TestCase $ assertEqual "gem m2 m3" (True) (gem m2 m3),
-    TestCase $ assertEqual "gem m3 m1" (True) (gem m3 m1),
-    TestCase $ assertEqual "gem m3 m2" (False) (gem m3 m2),
-    TestCase $ assertEqual "gem m3 m3" (True) (gem m3 m3)
-    ]
-    )
+--test4 = TestLabel "Test: check OrdMat" $ (
+--    TestList [
+--    TestCase $ assertEqual "lsm m1 m1" (False) (lsm m1 m1),
+--    TestCase $ assertEqual "lsm m1 m2" (True) (lsm m1 m2),
+--    TestCase $ assertEqual "lsm m1 m3" (False) (lsm m1 m3),
+--    TestCase $ assertEqual "lsm m2 m1" (False) (lsm m2 m1),
+--    TestCase $ assertEqual "lsm m2 m2" (False) (lsm m2 m2),
+--    TestCase $ assertEqual "lsm m2 m3" (False) (lsm m2 m3),
+--    TestCase $ assertEqual "lsm m3 m1" (False) (lsm m3 m1),
+--    TestCase $ assertEqual "lsm m3 m2" (False) (lsm m3 m2),
+--    TestCase $ assertEqual "lsm m3 m3" (False) (lsm m3 m3),
+--    TestCase $ assertEqual "lem m1 m1" (True) (lem m1 m1),
+--    TestCase $ assertEqual "lem m1 m2" (True) (lem m1 m2),
+--    TestCase $ assertEqual "lem m1 m3" (True) (lem m1 m3),
+--    TestCase $ assertEqual "lem m2 m1" (False) (lem m2 m1),
+--    TestCase $ assertEqual "lem m2 m2" (True) (lem m2 m2),
+--    TestCase $ assertEqual "lem m2 m3" (False) (lem m2 m3),
+--    TestCase $ assertEqual "lem m3 m1" (False) (lem m3 m1),
+--    TestCase $ assertEqual "lem m3 m2" (True) (lem m3 m2),
+--    TestCase $ assertEqual "lem m3 m3" (True) (lem m3 m3),
+--    TestCase $ assertEqual "grm m1 m1" (False) (grm m1 m1),
+--    TestCase $ assertEqual "grm m1 m2" (False) (grm m1 m2),
+--    TestCase $ assertEqual "grm m1 m3" (False) (grm m1 m3),
+--    TestCase $ assertEqual "grm m2 m1" (True) (grm m2 m1),
+--    TestCase $ assertEqual "grm m2 m2" (False) (grm m2 m2),
+--    TestCase $ assertEqual "grm m2 m3" (False) (grm m2 m3),
+--    TestCase $ assertEqual "grm m3 m1" (False) (grm m3 m1),
+--    TestCase $ assertEqual "grm m3 m2" (False) (grm m3 m2),
+--    TestCase $ assertEqual "grm m3 m3" (False) (grm m3 m3),
+--    TestCase $ assertEqual "gem m1 m1" (True) (gem m1 m1),
+--    TestCase $ assertEqual "gem m1 m2" (False) (gem m1 m2),
+--    TestCase $ assertEqual "gem m1 m3" (False) (gem m1 m3),
+--    TestCase $ assertEqual "gem m2 m1" (True) (gem m2 m1),
+--    TestCase $ assertEqual "gem m2 m2" (True) (gem m2 m2),
+--    TestCase $ assertEqual "gem m2 m3" (True) (gem m2 m3),
+--    TestCase $ assertEqual "gem m3 m1" (True) (gem m3 m1),
+--    TestCase $ assertEqual "gem m3 m2" (False) (gem m3 m2),
+--    TestCase $ assertEqual "gem m3 m3" (True) (gem m3 m3)
+--    ]
+--    )
 
-test5 = TestLabel "Test: check OrderingMat" $ (
-    TestList [
-    TestCase $ assertEqual "cmpm m1 m1" (EQM) (cmpm m1 m1),
-    TestCase $ assertEqual "cmpm m1 m2" (LTM) (cmpm m1 m2),
-    TestCase $ assertEqual "cmpm m1 m3" (INC) (cmpm m1 m3),
-    TestCase $ assertEqual "cmpm m2 m1" (GTM) (cmpm m2 m1),
-    TestCase $ assertEqual "cmpm m2 m2" (EQM) (cmpm m2 m2),
-    TestCase $ assertEqual "cmpm m2 m3" (INC) (cmpm m2 m3),
-    TestCase $ assertEqual "cmpm m3 m1" (INC) (cmpm m3 m1),
-    TestCase $ assertEqual "cmpm m3 m2" (INC) (cmpm m3 m2),
-    TestCase $ assertEqual "cmpm m3 m3" (EQM) (cmpm m3 m3)
-    ]
-    )
+--test5 = TestLabel "Test: check OrderingMat" $ (
+--    TestList [
+--    TestCase $ assertEqual "cmpm m1 m1" (EQM) (cmpm m1 m1),
+--    TestCase $ assertEqual "cmpm m1 m2" (LTM) (cmpm m1 m2),
+--    TestCase $ assertEqual "cmpm m1 m3" (INC) (cmpm m1 m3),
+--    TestCase $ assertEqual "cmpm m2 m1" (GTM) (cmpm m2 m1),
+--    TestCase $ assertEqual "cmpm m2 m2" (EQM) (cmpm m2 m2),
+--    TestCase $ assertEqual "cmpm m2 m3" (INC) (cmpm m2 m3),
+--    TestCase $ assertEqual "cmpm m3 m1" (INC) (cmpm m3 m1),
+--    TestCase $ assertEqual "cmpm m3 m2" (INC) (cmpm m3 m2),
+--    TestCase $ assertEqual "cmpm m3 m3" (EQM) (cmpm m3 m3)
+--    ]
+--    )
 
-test6 = TestLabel "Test: check ArithMat" $ (
-    TestList [
-    TestCase $ assertEqual "addm rpm1 rpm1" (rarpm1rpm1) (addm rpm1 rpm1),
-    TestCase $ assertEqual "addm m1 m3" (ram1m3) (addm m1 m3),
-    TestCase $ assertEqual "addm m1 m1" (ram1m1) (addm m1 m1),
-    TestCase $ assertEqual "addm m1 rpm1" (ram1rpm1) (addm m1 rpm1),
-    TestCase $ assertEqual "multm m1 m1" (rmm1m1) (multm m1 m1),
-    TestCase $ assertEqual "multm m2 m2" (rmm2m2) (multm m2 m2),
-    TestCase $ assertEqual "multm m2 m3" (rmm2m3) (multm m2 m3),
-    TestCase $ assertEqual "multm rpm4 rpm5" (rmrpm4rpm5) (multm rpm4 rpm5),
-    TestCase $ assertEqual "multm rpm1 rpm1" (rmrpm1rpm1) (multm rpm1 rpm1),
-    TestCase $ assertEqual "multm rpm2 rpm3" (rmrpm2rpm3) (multm rpm2 rpm3),
-    TestCase $ assertEqual "multm rpm3 rpm3" (rmrpm3rpm2) (multm rpm3 rpm2)
-    ]
-    )
+--test6 = TestLabel "Test: check ArithMat" $ (
+--    TestList [
+--    TestCase $ assertEqual "addm rpm1 rpm1" (rarpm1rpm1) (addm rpm1 rpm1),
+--    TestCase $ assertEqual "addm m1 m3" (ram1m3) (addm m1 m3),
+--    TestCase $ assertEqual "addm m1 m1" (ram1m1) (addm m1 m1),
+--    TestCase $ assertEqual "addm m1 rpm1" (ram1rpm1) (addm m1 rpm1),
+--    TestCase $ assertEqual "multm m1 m1" (rmm1m1) (multm m1 m1),
+--    TestCase $ assertEqual "multm m2 m2" (rmm2m2) (multm m2 m2),
+--    TestCase $ assertEqual "multm m2 m3" (rmm2m3) (multm m2 m3),
+--    TestCase $ assertEqual "multm rpm4 rpm5" (rmrpm4rpm5) (multm rpm4 rpm5),
+--    TestCase $ assertEqual "multm rpm1 rpm1" (rmrpm1rpm1) (multm rpm1 rpm1),
+--    TestCase $ assertEqual "multm rpm2 rpm3" (rmrpm2rpm3) (multm rpm2 rpm3),
+--    TestCase $ assertEqual "multm rpm3 rpm3" (rmrpm3rpm2) (multm rpm3 rpm2)
+--    ]
+--    )
 
 
 
@@ -159,11 +159,11 @@ test6 = TestLabel "Test: check ArithMat" $ (
 checkMatrix :: Matrix -> Matrix -> Bool
 checkMatrix (M m1) (M m2) = m1 == m2
 
-toNat :: Integer -> Nat
-toNat n
-    | n < 0 = error "no negative numbers"
-    | n == 0 = Z
-    | otherwise = S (toNat (n-1))
+--toNat :: Integer -> Nat
+--toNat n
+--    | n < 0 = error "no negative numbers"
+--    | n == 0 = Z
+--    | otherwise = S (toNat (n-1))
 
 toPosRat :: (Integer,Integer) -> PosRat
 toPosRat n = (toNat $ fst n,toNat $ snd n)

@@ -67,7 +67,7 @@ mkCanPR :: PosRat -> PosRat
 mkCanPR (_,Z) = (Z,Z)
 mkCanPR r | isCanPR r = r
 mkCanPR (n,m) = (divN n ggt, divN m ggt)
-	where ggt = ggtPR (n,m) 
+    where ggt = ggtPR (n,m) 
 
 plusPR :: PosRat -> PosRat -> PosRat
 plusPR (n1, m1) (n2, m2) = mkCanPR (plusN (timesN n1 m2) (timesN n2 m1), timesN m1 m2)
@@ -79,7 +79,7 @@ timesPR :: PosRat -> PosRat -> PosRat
 timesPR (n1, m1) (n2, m2) = mkCanPR (timesN n1 n2, timesN m1 m2)
 
 divPR :: PosRat -> PosRat -> PosRat
-divPR	(n1, m1) (n2, m2) = mkCanPR (timesN n1 m2, timesN n2 m1)
+divPR   (n1, m1) (n2, m2) = mkCanPR (timesN n1 m2, timesN n2 m1)
 
 eqPR :: PosRat -> PosRat -> Bool
 eqPR (n1, m1) (n2, m2) = neqN m1 Z && neqN m2 Z && eqN (timesN n1 m2) (timesN n2 m1)
@@ -104,12 +104,16 @@ toNat n
     | n == 0 = Z
     | otherwise = S (toNat (n-1))
 
-data Nat			= Z | S Nat
-type PosRat 		= (Nat, Nat)
-type Skalar			= PosRat
-type ProtoMatrix	= [[Skalar]]
-newtype Matrix		= M [[Skalar]]
-type Fuellwert		= Integer
+toInt :: Nat -> Int
+toInt Z = 0
+toInt (S n) = 1 + toInt n
+ 
+data Nat            = Z | S Nat deriving Show
+type PosRat         = (Nat, Nat)
+type Skalar         = PosRat
+type ProtoMatrix    = [[Skalar]]
+newtype Matrix      = M [[Skalar]]
+type Fuellwert      = Integer
 
 mkMatrix :: ProtoMatrix -> Fuellwert -> Matrix
 mkMatrix pm i = M $ map (mkRow i (maximum (map length pm))) pm 
@@ -119,3 +123,40 @@ mkRow i len row = take (max 1 len) (row ++ repeat (toNat (abs i), toNat 1))
 
 data OktoZiffern = E | Zw | D | V | F | Se | Si | N deriving (Eq, Show)
 type OktoZahlen = [OktoZiffern]
+
+instance Show (Matrix) where
+        show (M m) = show $ map (map prToOkt) m
+
+mapNatToOkt :: Nat -> OktoZiffern 
+mapNatToOkt n = mapNatToOkt' $ toInt n
+
+mapNatToOkt' :: Int -> OktoZiffern
+mapNatToOkt' 0 = N
+mapNatToOkt' 1 = E
+mapNatToOkt' 2 = Zw
+mapNatToOkt' 3 = D
+mapNatToOkt' 4 = V
+mapNatToOkt' 5 = F
+mapNatToOkt' 6 = Se
+mapNatToOkt' 7 = Si
+    
+natToOkt :: Nat -> OktoZahlen
+natToOkt Z = [N]
+natToOkt n = reverse $ natToOkt' n
+    where natToOkt' Z = []
+          natToOkt' m = mapNatToOkt (modN m eightInNat) : natToOkt' (divN m eightInNat) 
+          eightInNat = toNat 8
+
+prToOkt :: PosRat -> (OktoZahlen, OktoZahlen)
+prToOkt (n, d) = (natToOkt n, natToOkt d)
+
+instance Eq Matrix where
+       (M []) == (M []) = True
+       (M m1) == (M m2)  
+              | length m1 /= length m2 = False
+              | length (head m1) /= length (head m2) = False
+              | otherwise = minimum (zipWith eqPR (head m1) (head m2)) && (M (tail m1)) == (M (tail m2))
+
+--data OrderingMat = EQM | LTM | GTM | INC deriving (Eq,Show)
+
+--cmpm :: Matrix -> Matrix -> OrderingMat
