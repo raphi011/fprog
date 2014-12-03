@@ -107,6 +107,8 @@ toNat n
 toInt :: Nat -> Int
 toInt Z = 0
 toInt (S n) = 1 + toInt n
+
+-- Start Assignment 6
  
 data Nat            = Z | S Nat deriving Show
 type PosRat         = (Nat, Nat)
@@ -151,12 +153,31 @@ prToOkt :: PosRat -> (OktoZahlen, OktoZahlen)
 prToOkt (n, d) = (natToOkt n, natToOkt d)
 
 instance Eq Matrix where
-       (M []) == (M []) = True
-       (M m1) == (M m2)  
-              | length m1 /= length m2 = False
-              | length (head m1) /= length (head m2) = False
-              | otherwise = minimum (zipWith eqPR (head m1) (head m2)) && (M (tail m1)) == (M (tail m2))
+       (M m1) == (M m2) = cmpm' eqPR m1 m2
+              
 
---data OrderingMat = EQM | LTM | GTM | INC deriving (Eq,Show)
+data OrderingMat = EQM | LTM | GTM | INC deriving (Eq,Show)
 
---cmpm :: Matrix -> Matrix -> OrderingMat
+lsm :: Matrix -> Matrix -> Bool
+lsm (M m1) (M m2) = cmpm' lePR m1 m2
+
+lem :: Matrix -> Matrix -> Bool
+lem (M m1) (M m2) = cmpm' leEqPR m1 m2
+
+grm :: Matrix -> Matrix -> Bool
+grm (M m1) (M m2) = cmpm' grPR m1 m2
+
+gem :: Matrix -> Matrix -> Bool
+gem (M m1) (M m2) = cmpm' grEqPR m1 m2
+
+cmpm :: Matrix -> Matrix -> OrderingMat
+cmpm m1 m2    | m1 == m2 = EQM
+              | grm m1 m2 = LTM
+              | lem m1 m2 = GTM
+              | otherwise = INC
+
+cmpm' :: (a -> a -> Bool) -> [[a]] -> [[a]] -> Bool
+cmpm' _ [] [] = True
+cmpm' cmp m1 m2 | length m1 /= length m2 = False
+                | length (head m1) /= length (head m2) = False
+                | otherwise = minimum (zipWith cmp (head m1) (head m2)) && cmpm' cmp (tail m1) (tail m2)

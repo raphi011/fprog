@@ -7,7 +7,7 @@ import Aufgabe6
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3] --,,test4,test5,test6]
+main = runTestTT $ TestList [test1,test2,test3,test4] --,test5,test6]
 
 
 
@@ -82,46 +82,46 @@ test3 = TestLabel "Test: check Eq" $ (
     ]
     )
 
---test4 = TestLabel "Test: check OrdMat" $ (
---    TestList [
---    TestCase $ assertEqual "lsm m1 m1" (False) (lsm m1 m1),
---    TestCase $ assertEqual "lsm m1 m2" (True) (lsm m1 m2),
---    TestCase $ assertEqual "lsm m1 m3" (False) (lsm m1 m3),
---    TestCase $ assertEqual "lsm m2 m1" (False) (lsm m2 m1),
---    TestCase $ assertEqual "lsm m2 m2" (False) (lsm m2 m2),
---    TestCase $ assertEqual "lsm m2 m3" (False) (lsm m2 m3),
---    TestCase $ assertEqual "lsm m3 m1" (False) (lsm m3 m1),
---    TestCase $ assertEqual "lsm m3 m2" (False) (lsm m3 m2),
---    TestCase $ assertEqual "lsm m3 m3" (False) (lsm m3 m3),
---    TestCase $ assertEqual "lem m1 m1" (True) (lem m1 m1),
---    TestCase $ assertEqual "lem m1 m2" (True) (lem m1 m2),
---    TestCase $ assertEqual "lem m1 m3" (True) (lem m1 m3),
---    TestCase $ assertEqual "lem m2 m1" (False) (lem m2 m1),
---    TestCase $ assertEqual "lem m2 m2" (True) (lem m2 m2),
---    TestCase $ assertEqual "lem m2 m3" (False) (lem m2 m3),
---    TestCase $ assertEqual "lem m3 m1" (False) (lem m3 m1),
---    TestCase $ assertEqual "lem m3 m2" (True) (lem m3 m2),
---    TestCase $ assertEqual "lem m3 m3" (True) (lem m3 m3),
---    TestCase $ assertEqual "grm m1 m1" (False) (grm m1 m1),
---    TestCase $ assertEqual "grm m1 m2" (False) (grm m1 m2),
---    TestCase $ assertEqual "grm m1 m3" (False) (grm m1 m3),
---    TestCase $ assertEqual "grm m2 m1" (True) (grm m2 m1),
---    TestCase $ assertEqual "grm m2 m2" (False) (grm m2 m2),
---    TestCase $ assertEqual "grm m2 m3" (False) (grm m2 m3),
---    TestCase $ assertEqual "grm m3 m1" (False) (grm m3 m1),
---    TestCase $ assertEqual "grm m3 m2" (False) (grm m3 m2),
---    TestCase $ assertEqual "grm m3 m3" (False) (grm m3 m3),
---    TestCase $ assertEqual "gem m1 m1" (True) (gem m1 m1),
---    TestCase $ assertEqual "gem m1 m2" (False) (gem m1 m2),
---    TestCase $ assertEqual "gem m1 m3" (False) (gem m1 m3),
---    TestCase $ assertEqual "gem m2 m1" (True) (gem m2 m1),
---    TestCase $ assertEqual "gem m2 m2" (True) (gem m2 m2),
---    TestCase $ assertEqual "gem m2 m3" (True) (gem m2 m3),
---    TestCase $ assertEqual "gem m3 m1" (True) (gem m3 m1),
---    TestCase $ assertEqual "gem m3 m2" (False) (gem m3 m2),
---    TestCase $ assertEqual "gem m3 m3" (True) (gem m3 m3)
---    ]
---    )
+test4 = TestLabel "Test: check OrdMat" $ (
+    TestList [
+    TestCase $ assertEqual "lsm m1 m1" (False) (lsm m1 m1),
+    TestCase $ assertEqual "lsm m1 m2" (True) (lsm m1 m2),
+    TestCase $ assertEqual "lsm m1 m3" (False) (lsm m1 m3),
+    TestCase $ assertEqual "lsm m2 m1" (False) (lsm m2 m1),
+    TestCase $ assertEqual "lsm m2 m2" (False) (lsm m2 m2),
+    TestCase $ assertEqual "lsm m2 m3" (False) (lsm m2 m3),
+    TestCase $ assertEqual "lsm m3 m1" (False) (lsm m3 m1),
+    TestCase $ assertEqual "lsm m3 m2" (False) (lsm m3 m2),
+    TestCase $ assertEqual "lsm m3 m3" (False) (lsm m3 m3),
+    TestCase $ assertEqual "lem m1 m1" (True) (lem m1 m1),
+    TestCase $ assertEqual "lem m1 m2" (True) (lem m1 m2),
+    TestCase $ assertEqual "lem m1 m3" (True) (lem m1 m3),
+    TestCase $ assertEqual "lem m2 m1" (False) (lem m2 m1),
+    TestCase $ assertEqual "lem m2 m2" (True) (lem m2 m2),
+    TestCase $ assertEqual "lem m2 m3" (False) (lem m2 m3),
+    TestCase $ assertEqual "lem m3 m1" (False) (lem m3 m1),
+    TestCase $ assertEqual "lem m3 m2" (True) (lem m3 m2),
+    TestCase $ assertEqual "lem m3 m3" (True) (lem m3 m3),
+    TestCase $ assertEqual "grm m1 m1" (False) (grm m1 m1),
+    TestCase $ assertEqual "grm m1 m2" (False) (grm m1 m2),
+    TestCase $ assertEqual "grm m1 m3" (False) (grm m1 m3),
+    TestCase $ assertEqual "grm m2 m1" (True) (grm m2 m1),
+    TestCase $ assertEqual "grm m2 m2" (False) (grm m2 m2),
+    TestCase $ assertEqual "grm m2 m3" (False) (grm m2 m3),
+    TestCase $ assertEqual "grm m3 m1" (False) (grm m3 m1),
+    TestCase $ assertEqual "grm m3 m2" (False) (grm m3 m2),
+    TestCase $ assertEqual "grm m3 m3" (False) (grm m3 m3),
+    TestCase $ assertEqual "gem m1 m1" (True) (gem m1 m1),
+    TestCase $ assertEqual "gem m1 m2" (False) (gem m1 m2),
+    TestCase $ assertEqual "gem m1 m3" (False) (gem m1 m3),
+    TestCase $ assertEqual "gem m2 m1" (True) (gem m2 m1),
+    TestCase $ assertEqual "gem m2 m2" (True) (gem m2 m2),
+    TestCase $ assertEqual "gem m2 m3" (True) (gem m2 m3),
+    TestCase $ assertEqual "gem m3 m1" (True) (gem m3 m1),
+    TestCase $ assertEqual "gem m3 m2" (False) (gem m3 m2),
+    TestCase $ assertEqual "gem m3 m3" (True) (gem m3 m3)
+    ]
+    )
 
 --test5 = TestLabel "Test: check OrderingMat" $ (
 --    TestList [
