@@ -117,9 +117,18 @@ type ProtoMatrix    = [[Skalar]]
 newtype Matrix      = M [[Skalar]]
 type Fuellwert      = Integer
 
+{- mkMatrix
+ - takes a ProtoMatrix and creates a rectangular Matrix
+ - which is padded - if necessary - with the Fuellwert 
+ - if a row is not long enough
+ -}
 mkMatrix :: ProtoMatrix -> Fuellwert -> Matrix
 mkMatrix pm i = M $ map (mkRow i (maximum (map length pm))) pm 
 
+{- mkRow
+ - pads a row with Fuellwert 
+ - until it has the given length
+ -}
 mkRow :: Fuellwert -> Int -> [Skalar] -> [Skalar]
 mkRow i len row = take (max 1 len) (row ++ repeat (toNat (abs i), toNat 1))
 
@@ -129,19 +138,25 @@ type OktoZahlen = [OktoZiffern]
 instance Show (Matrix) where
         show (M m) = show $ map (map prToOkt) m
 
+{- mapNatToOkt 
+ - maps the Nat values 0-7 to a OktoZiffer
+ -}
 mapNatToOkt :: Nat -> OktoZiffern 
 mapNatToOkt n = mapNatToOkt' $ toInt n
+       where mapNatToOkt' :: Int -> OktoZiffern
+             mapNatToOkt' 0 = N
+             mapNatToOkt' 1 = E
+             mapNatToOkt' 2 = Zw
+             mapNatToOkt' 3 = D
+             mapNatToOkt' 4 = V
+             mapNatToOkt' 5 = F
+             mapNatToOkt' 6 = Se
+             mapNatToOkt' 7 = Si
 
-mapNatToOkt' :: Int -> OktoZiffern
-mapNatToOkt' 0 = N
-mapNatToOkt' 1 = E
-mapNatToOkt' 2 = Zw
-mapNatToOkt' 3 = D
-mapNatToOkt' 4 = V
-mapNatToOkt' 5 = F
-mapNatToOkt' 6 = Se
-mapNatToOkt' 7 = Si
     
+{- natToOkt 
+ - converts a Nat number to Oktozahlen
+ -}
 natToOkt :: Nat -> OktoZahlen
 natToOkt Z = [N]
 natToOkt n = reverse $ natToOkt' n
@@ -149,6 +164,9 @@ natToOkt n = reverse $ natToOkt' n
           natToOkt' m = mapNatToOkt (modN m eightInNat) : natToOkt' (divN m eightInNat) 
           eightInNat = toNat 8
 
+{- prToOkt 
+ - converts a PosRat to an OktoZahlen Rational
+ -}
 prToOkt :: PosRat -> (OktoZahlen, OktoZahlen)
 prToOkt (n, d) = (natToOkt n, natToOkt d)
 
@@ -158,24 +176,42 @@ instance Eq Matrix where
 
 data OrderingMat = EQM | LTM | GTM | INC deriving (Eq,Show)
 
+{- lsm 
+ - returns true if m1 < m2
+ -}
 lsm :: Matrix -> Matrix -> Bool
 lsm (M m1) (M m2) = cmpm' lePR m1 m2
 
+{- lem 
+ - returns true if m1 <= m2
+ -}
 lem :: Matrix -> Matrix -> Bool
 lem (M m1) (M m2) = cmpm' leEqPR m1 m2
 
+{- grm 
+ - returns true if m1 > m2
+ -}
 grm :: Matrix -> Matrix -> Bool
 grm (M m1) (M m2) = cmpm' grPR m1 m2
 
+{- grm 
+ - returns true if m1 >= m2
+ -}
 gem :: Matrix -> Matrix -> Bool
 gem (M m1) (M m2) = cmpm' grEqPR m1 m2
 
+{- cmpm
+ - returns the OrderingMat of the matrices
+ -}
 cmpm :: Matrix -> Matrix -> OrderingMat
 cmpm m1 m2    | m1 == m2 = EQM
               | grm m1 m2 = LTM
               | lem m1 m2 = GTM
               | otherwise = INC
 
+{- cmpm'
+ - compares two list of lists with a given function
+ -}
 cmpm' :: (a -> a -> Bool) -> [[a]] -> [[a]] -> Bool
 cmpm' _ [] [] = True
 cmpm' cmp m1 m2 | length m1 /= length m2 = False
