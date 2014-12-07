@@ -66,17 +66,19 @@ getRanks p = getRanks' $ map fst $ sortBy sortRanks $ map (\verein -> (verein, t
    where getRanks' [] = []
          getRanks' (x:xs) = (fromIntegral(length xs + 1) , x) : getRanks' xs 
 
-getVereinWithRank :: [(Integer,Verein)] -> (Integer -> Bool) -> [Verein]
-getVereinWithRank punkte f = map snd $ filter (\points -> f (fst points)) punkte
+getSpielerWithRank :: (Integer -> Bool) -> Saison -> [(SpielerId,Verein)]
+getSpielerWithRank f saison@(punkte, Kd kader, _) = concat $ map (getPlayerTuples kader) $ getVereinWithRank f saison
 
-get_spm_s :: Saison -> [(SpielerId,Verein)] 
-get_spm_s (punkte, Kd kader, _) = map (\spieler -> (spieler,topVerein)) $ kader topVerein
-  where ranks = getRanks punkte
-        topVerein = head $ getVereinWithRank ranks (1 ==)
+getPlayerTuples :: (Verein -> [SpielerId]) -> Verein -> [(SpielerId, Verein)]
+getPlayerTuples f verein = map (\spieler -> (spieler, verein)) $ f verein
+
+getVereinWithRank :: (Integer -> Bool) -> Saison -> [Verein]
+getVereinWithRank f (punkte, _, _) = map snd $ filter (\points -> f (fst points)) ranks
+    where ranks = getRanks punkte
 
 get_spm :: Historie -> [SpielerId]
 get_spm h = sort $ best
-  where bestPlayers = map fst $ nub $ concat $ map get_spm_s h -- list of unique (SpielerId,Verein) tuples
+  where bestPlayers = map fst $ nub $ concat $ map (getSpielerWithRank (1 ==)) h -- list of unique (SpielerId,Verein) tuples
         best = filterByMaxLength $ group $ sort $ bestPlayers -- list of (SpielerId, Count of different Verein's)
 
 sieve (x:xs) = x : sieve [y | y <- xs, mod y x > 0]
@@ -92,12 +94,8 @@ filterByMaxLength :: [[a]] -> [a]
 filterByMaxLength l = map head $ filter (\x -> length x == maxLength) l
     where maxLength = length $ maximumBy (comparing length) l
 
-get_mdhm_s :: Saison -> [Verein] 
-get_mdhm_s (punkte, Kd kader, _) = getVereinWithRank ranks isPrime
-   where ranks = getRanks punkte
-         
 get_mdhm :: Historie -> [Verein]
-get_mdhm h = sort $ filterByMaxLength $ group $ sort $ concat $ map get_mdhm_s h 
+get_mdhm h = sort $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPrime) h 
 
 
 isPowerOfTwo :: Integer -> Bool
@@ -105,12 +103,8 @@ isPowerOfTwo 0 = False
 isPowerOfTwo 1 = True
 isPowerOfTwo n = ( n `mod` 2 == 0) && isPowerOfTwo (n `div` 2)
 
-get_mdhi_s :: Saison -> [Verein] 
-get_mdhi_s (punkte, Kd kader, _) = getVereinWithRank ranks isPowerOfTwo
-   where ranks = getRanks punkte
-
 get_mdhi :: Historie -> [Verein]
-get_mdhi h = sort $ nub $ filterByMaxLength $ group $ sort $ concat $ map get_mdhi_s h 
+get_mdhi h = sort $ nub $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPowerOfTwo) h 
 
 get_pv :: Historie -> [SpielerId]
 get_pv h = []
