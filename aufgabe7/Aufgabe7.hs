@@ -113,7 +113,8 @@ get_pv h = sort $ filterByMaxLength $ group $ sort badluck
         badluck = [ x | x <- losers, not (elem x winners) ] 
 
 get_ugr :: Historie -> [SpielerId]
-get_ugr h = []
+get_ugr h = sort $ nub $ map fst $ filterByMaxLength $ sort $ concat $ map (getSpielerWithRank (lastPlace ==)) h
+  where lastPlace = length vereine
 
 get_tsp :: Historie -> [TrainerId]
 get_tsp h = []
