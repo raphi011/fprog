@@ -95,11 +95,18 @@ get_taz h = sort $ filterByMaxLength $ group $ sort $ map fst $ concat $ map (ge
   where anzahlVereine = length vereine 
         lastThree = [ fromIntegral x | x <- [anzahlVereine - 2 .. anzahlVereine]]
 
+getAllTrainers :: Saison -> [(TrainerId,Verein)]
+getAllTrainers (_,_, Tr trainer) = map (\x -> (trainer x, x)) vereine
+
 get_vsz :: Historie -> [Verein]
-get_vsz h = sort $ map snd $ filterByMaxLength $ groupBy (\x y -> snd x == snd y) $ sort $ nub $ concat $ map (getTrainerWithRank (\x -> True)) h
+get_vsz h = sort $ map snd $ filterByMaxLength $ groupBy (\x y -> snd x == snd y) $ sort $ nub $ concat $ map getAllTrainers h
 
 get_tmv :: Historie -> [TrainerId]
-get_tmv h = sort $ map fst $ filterByMaxLength $ groupBy (\x y -> fst x == fst y) $ sort $ nub $ concat $ map (getTrainerWithRank (\x -> True)) h
+get_tmv h = sort $ map fst $ filterByMaxLength $ groupBy (\x y -> fst x == fst y) $ sort $ nub $ concat $ map getAllTrainers h
 
 get_tps :: Historie -> [TrainerId]
-get_tps h = []
+get_tps h = map fst $ filter (\(_,y) -> y == maxDuration) history3
+  where history = groupBy (\x y -> fst x == fst y) $ sortBy (\x y -> compare (fst x) (fst y)) $ concat $ map getAllTrainers h
+        history2 = map (foldl (\(x,y) cur -> (x, (snd cur) : y)) (TId Z,[])) history
+        history3 = map (\(x,y) -> (x,length $ filterByMaxLength $ group $ y)) history2
+        maxDuration = snd $ maximumBy (comparing snd) history3
