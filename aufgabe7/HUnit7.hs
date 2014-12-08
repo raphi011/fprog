@@ -7,7 +7,7 @@ import Aufgabe7
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3] --,test5,test6]
+main = runTestTT $ TestList [test1,test2,test3,test5,test6]
 
 
 

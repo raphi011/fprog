@@ -1,22 +1,7 @@
 module Aufgabe7 where
 
 import Data.List
-import Data.Ord
-
-grN :: Nat -> Nat -> Bool
-grN Z _ = False
-grN _ Z = True 
-grN (S n) (S m) = grN n m   
-
-eqN :: Nat -> Nat -> Bool 
-eqN Z Z = True
-eqN Z _ = False
-eqN _ Z = False 
-eqN (S n) (S m) = eqN n m
-
-maxN :: Nat -> Nat -> Nat
-maxN n1 n2 | grN n1 n2 = n1
-           | otherwise = n2
+import Data.Ord 
 
 toInt :: Nat -> Integer
 toInt Z = 0
@@ -39,22 +24,6 @@ type Historie     = [Saison]
 data Nat          = Z | S Nat deriving (Eq,Ord,Show)
 
 vereine = [Sturm, WAC, Austria, WrNeustadt, RBSbg, Groedig, Rapid, Admira, Ried, Altach]
-
-
-
-
-
---getBestKader :: Saison -> [SpielerId] 
---getBestKader (punkte ,Kd kader, _) = kader (getBestVerein punkte)
-
---getBestVerein :: Punkte -> Verein
---getBestVerein p = foldl (\cur x -> compareVereine p cur x) Sturm vereine
-
---getSpieler :: Kader -> Verein -> [SpielerId] 
---getSpieler (Kd k) v = k v 
-
---frequency :: Ord a => [a] -> [(Int,a)] 
---frequency list = map (\l -> (length l, head l)) (group (sort list))
 
 sortRanks :: (Verein, Integer) -> (Verein, Integer) -> Ordering
 sortRanks (v1, p1) (v2, p2) | p1 > p2 = GT
@@ -97,7 +66,6 @@ filterByMaxLength l = map head $ filter (\x -> length x == maxLength) l
 get_mdhm :: Historie -> [Verein]
 get_mdhm h = sort $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPrime) h 
 
-
 isPowerOfTwo :: Integer -> Bool
 isPowerOfTwo 0 = False
 isPowerOfTwo 1 = True
@@ -113,20 +81,25 @@ get_pv h = sort $ filterByMaxLength $ group $ sort badluck
         badluck = [ x | x <- losers, not (elem x winners) ] 
 
 get_ugr :: Historie -> [SpielerId]
-get_ugr h = sort $ nub $ map fst $ filterByMaxLength $ sort $ concat $ map (getSpielerWithRank (lastPlace ==)) h
-  where lastPlace = length vereine
+get_ugr h = reverse . sort $ nub $ map fst $ filterByMaxLength $ group $ sort $ concat $ map (getSpielerWithRank (lastPlace ==)) h
+  where lastPlace = toInteger $ length vereine
+
+getTrainerWithRank :: (Integer -> Bool) -> Saison -> [(TrainerId,Verein)]
+getTrainerWithRank f saison@(_, _, Tr trainer) = map (\x -> (trainer x, x)) $ getVereinWithRank f saison
 
 get_tsp :: Historie -> [TrainerId]
-get_tsp h = []
+get_tsp h = sort $ filterByMaxLength $ group $ sort $ map fst $ concat $ map (getTrainerWithRank (`elem` [1,2,3])) h
 
 get_taz :: Historie -> [TrainerId]
-get_taz h = []
+get_taz h = sort $ filterByMaxLength $ group $ sort $ map fst $ concat $ map (getTrainerWithRank (`elem` lastThree)) h
+  where anzahlVereine = length vereine 
+        lastThree = [ fromIntegral x | x <- [anzahlVereine - 2 .. anzahlVereine]]
 
 get_vsz :: Historie -> [Verein]
-get_vsz h = []
+get_vsz h = sort $ map snd $ filterByMaxLength $ groupBy (\x y -> snd x == snd y) $ sort $ nub $ concat $ map (getTrainerWithRank (\x -> True)) h
 
 get_tmv :: Historie -> [TrainerId]
-get_tmv h = []
+get_tmv h = sort $ map fst $ filterByMaxLength $ groupBy (\x y -> fst x == fst y) $ sort $ nub $ concat $ map (getTrainerWithRank (\x -> True)) h
 
 get_tps :: Historie -> [TrainerId]
 get_tps h = []
