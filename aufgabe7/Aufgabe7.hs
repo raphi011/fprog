@@ -107,7 +107,10 @@ get_mdhi :: Historie -> [Verein]
 get_mdhi h = sort $ nub $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPowerOfTwo) h 
 
 get_pv :: Historie -> [SpielerId]
-get_pv h = []
+get_pv h = sort $ filterByMaxLength $ group $ sort badluck
+  where winners = map fst $ concat $ map (getSpielerWithRank (1 ==)) h
+        losers = map fst $ concat $ map (getSpielerWithRank (2 ==)) h
+        badluck = [ x | x <- losers, not (elem x winners) ] 
 
 get_ugr :: Historie -> [SpielerId]
 get_ugr h = []
