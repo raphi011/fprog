@@ -3,6 +3,9 @@ module Aufgabe7 where
 import Data.List
 import Data.Ord 
 
+{- toInt
+ - converts Nat to Int
+ -}
 toInt :: Nat -> Integer
 toInt Z = 0
 toInt (S n) = 1 + toInt n
@@ -25,26 +28,47 @@ data Nat          = Z | S Nat deriving (Eq,Ord,Show)
 
 vereine = [Sturm, WAC, Austria, WrNeustadt, RBSbg, Groedig, Rapid, Admira, Ried, Altach]
 
+{- sortRanks
+ - sorting function for 'Verein' rankings,
+ - used by sortBy 
+ -}
 sortRanks :: (Verein, Integer) -> (Verein, Integer) -> Ordering
 sortRanks (v1, p1) (v2, p2) | p1 > p2 = GT
                             | p1 < p2 = EQ
                             | otherwise = compare v2 v1
 
+{- getRanks 
+ - calculates the ranks of every Verein
+ - for a season
+ -}
 getRanks :: Punkte -> [(Integer,Verein)]
 getRanks p = getRanks' $ map fst $ sortBy sortRanks $ map (\verein -> (verein, toInt(p verein))) vereine
    where getRanks' [] = []
          getRanks' (x:xs) = (fromIntegral(length xs + 1) , x) : getRanks' xs 
 
+{- getSpielerWithRank
+ - returns a list of players from a season with a given rank
+ -}
 getSpielerWithRank :: (Integer -> Bool) -> Saison -> [(SpielerId,Verein)]
 getSpielerWithRank f saison@(punkte, Kd kader, _) = concat $ map (getPlayerTuples kader) $ getVereinWithRank f saison
 
+{- getPlayerTuples
+ - list of players of a team
+ -}
 getPlayerTuples :: (Verein -> [SpielerId]) -> Verein -> [(SpielerId, Verein)]
 getPlayerTuples f verein = map (\spieler -> (spieler, verein)) $ f verein
 
+{- getVereinWithRank
+ - list of teams with a certain rank
+ -}
 getVereinWithRank :: (Integer -> Bool) -> Saison -> [Verein]
 getVereinWithRank f (punkte, _, _) = map snd $ filter (\points -> f (fst points)) ranks
     where ranks = getRanks punkte
 
+{- get_spm
+ - returns all players that have the most championships
+ - with different teams
+ -}
 get_spm :: Historie -> [SpielerId]
 get_spm h = sort $ best
   where bestPlayers = map fst $ nub $ concat $ map (getSpielerWithRank (1 ==)) h -- list of unique (SpielerId,Verein) tuples
@@ -53,12 +77,18 @@ get_spm h = sort $ best
 sieve (x:xs) = x : sieve [y | y <- xs, mod y x > 0]
 primes = sieve [2..] 
 
+{- isPrime
+ - returns True if value is a prime number
+ -}
 isPrime :: Integer -> Bool
 isPrime x = isPrime' x primes
    where isPrime' n (x:xs) | x > n = False
                            | x == n = True
                            | otherwise = isPrime' n xs
 
+{- filterByMaxLength
+ - returns  
+ -}
 filterByMaxLength :: [[a]] -> [a]
 filterByMaxLength l = map head $ filter (\x -> length x == maxLength) l
     where maxLength = length $ maximumBy (comparing length) l
