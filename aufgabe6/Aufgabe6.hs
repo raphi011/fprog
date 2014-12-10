@@ -205,8 +205,8 @@ gem (M m1) (M m2) = cmpm' grEqPR m1 m2
  -}
 cmpm :: Matrix -> Matrix -> OrderingMat
 cmpm m1 m2    | m1 == m2 = EQM
-              | grm m1 m2 = LTM
-              | lem m1 m2 = GTM
+              | grm m1 m2 = GTM
+              | lsm m1 m2 = LTM
               | otherwise = INC
 
 {- cmpm'
@@ -219,3 +219,10 @@ cmpm' cmp m1 m2 | length m1 /= length m2 = False
                 | otherwise = minimum (zipWith cmp (head m1) (head m2)) && cmpm' cmp (tail m1) (tail m2)
 
 
+{- addm
+ - adds two matrices
+ -}
+addm :: Matrix -> Matrix -> Matrix
+addm (M m1) (M m2) | length m1 /= length m2 = M [[(Z,Z)]]
+                   | length m1 > 0 && length m2 > 0 && length (head m1) /= length (head m2) = M [[(Z,Z)]]
+                   | otherwise = M $ zipWith (zipWith plusPR) m1 m2

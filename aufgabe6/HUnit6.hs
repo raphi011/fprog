@@ -7,7 +7,7 @@ import Aufgabe6
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3,test4,test5] --,test6]
+main = runTestTT $ TestList [test1,test2,test3,test4,test5,test6]
 
 
 
@@ -135,14 +135,13 @@ test5 = TestLabel "Test: check OrderingMat" $ (
     TestCase $ assertEqual "cmpm m3 m2" (INC) (cmpm m3 m2),
     TestCase $ assertEqual "cmpm m3 m3" (EQM) (cmpm m3 m3)
     ]
-)
-
---test6 = TestLabel "Test: check ArithMat" $ (
---    TestList [
---    TestCase $ assertEqual "addm rpm1 rpm1" (rarpm1rpm1) (addm rpm1 rpm1),
---    TestCase $ assertEqual "addm m1 m3" (ram1m3) (addm m1 m3),
---    TestCase $ assertEqual "addm m1 m1" (ram1m1) (addm m1 m1),
---    TestCase $ assertEqual "addm m1 rpm1" (ram1rpm1) (addm m1 rpm1),
+    )
+test6 = TestLabel "Test: check ArithMat" $ (
+    TestList [
+    TestCase $ assertEqual "addm rpm1 rpm1" (rarpm1rpm1) (addm rpm1 rpm1),
+    TestCase $ assertEqual "addm m1 m3" (ram1m3) (addm m1 m3),
+    TestCase $ assertEqual "addm m1 m1" (ram1m1) (addm m1 m1),
+    TestCase $ assertEqual "addm m1 rpm1" (ram1rpm1) (addm m1 rpm1)
 --    TestCase $ assertEqual "multm m1 m1" (rmm1m1) (multm m1 m1),
 --    TestCase $ assertEqual "multm m2 m2" (rmm2m2) (multm m2 m2),
 --    TestCase $ assertEqual "multm m2 m3" (rmm2m3) (multm m2 m3),
@@ -150,8 +149,8 @@ test5 = TestLabel "Test: check OrderingMat" $ (
 --    TestCase $ assertEqual "multm rpm1 rpm1" (rmrpm1rpm1) (multm rpm1 rpm1),
 --    TestCase $ assertEqual "multm rpm2 rpm3" (rmrpm2rpm3) (multm rpm2 rpm3),
 --    TestCase $ assertEqual "multm rpm3 rpm3" (rmrpm3rpm2) (multm rpm3 rpm2)
---    ]
---    )
+    ]
+    )
 
 
 
@@ -207,7 +206,7 @@ s5 = "[[([N],[E]),([E],[E]),([Zw],[E]),([D],[E])],[([E,Zw],[E]),([E,Zw],[E]),([E
 rarpm1rpm1 = M $ toProtoMatrix [ [(20,1)] ]
 ram1m3 = M $ toProtoMatrix [ [(2,1),(3,1),(2,1)],[(2,1),(3,1),(2,1)],[(2,1),(3,1),(2,1)] ]
 ram1m1 = M $ toProtoMatrix [ [(2,1),(2,1),(2,1)],[(2,1),(2,1),(2,1)],[(2,1),(2,1),(2,1)] ]
-ram1rpm1 = M $ [ [(Z,Z)] ]
+ram1rpm1 = M $ [[(Z,Z)]]
 
 -- result matrices multm
 rmm1m1 = M $ toProtoMatrix [ [(3,1),(3,1),(3,1)],[(3,1),(3,1),(3,1)],[(3,1),(3,1),(3,1)] ]
