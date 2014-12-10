@@ -217,3 +217,5 @@ cmpm' _ [] [] = True
 cmpm' cmp m1 m2 | length m1 /= length m2 = False
                 | length (head m1) /= length (head m2) = False
                 | otherwise = minimum (zipWith cmp (head m1) (head m2)) && cmpm' cmp (tail m1) (tail m2)
+
+

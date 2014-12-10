@@ -7,7 +7,7 @@ import Aufgabe6
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3,test4] --,test5,test6]
+main = runTestTT $ TestList [test1,test2,test3,test4,test5] --,test6]
 
 
 
@@ -123,19 +123,19 @@ test4 = TestLabel "Test: check OrdMat" $ (
     ]
     )
 
---test5 = TestLabel "Test: check OrderingMat" $ (
---    TestList [
---    TestCase $ assertEqual "cmpm m1 m1" (EQM) (cmpm m1 m1),
---    TestCase $ assertEqual "cmpm m1 m2" (LTM) (cmpm m1 m2),
---    TestCase $ assertEqual "cmpm m1 m3" (INC) (cmpm m1 m3),
---    TestCase $ assertEqual "cmpm m2 m1" (GTM) (cmpm m2 m1),
---    TestCase $ assertEqual "cmpm m2 m2" (EQM) (cmpm m2 m2),
---    TestCase $ assertEqual "cmpm m2 m3" (INC) (cmpm m2 m3),
---    TestCase $ assertEqual "cmpm m3 m1" (INC) (cmpm m3 m1),
---    TestCase $ assertEqual "cmpm m3 m2" (INC) (cmpm m3 m2),
---    TestCase $ assertEqual "cmpm m3 m3" (EQM) (cmpm m3 m3)
---    ]
---    )
+test5 = TestLabel "Test: check OrderingMat" $ (
+    TestList [
+    TestCase $ assertEqual "cmpm m1 m1" (EQM) (cmpm m1 m1),
+    TestCase $ assertEqual "cmpm m1 m2" (LTM) (cmpm m1 m2),
+    TestCase $ assertEqual "cmpm m1 m3" (INC) (cmpm m1 m3),
+    TestCase $ assertEqual "cmpm m2 m1" (GTM) (cmpm m2 m1),
+    TestCase $ assertEqual "cmpm m2 m2" (EQM) (cmpm m2 m2),
+    TestCase $ assertEqual "cmpm m2 m3" (INC) (cmpm m2 m3),
+    TestCase $ assertEqual "cmpm m3 m1" (INC) (cmpm m3 m1),
+    TestCase $ assertEqual "cmpm m3 m2" (INC) (cmpm m3 m2),
+    TestCase $ assertEqual "cmpm m3 m3" (EQM) (cmpm m3 m3)
+    ]
+)
 
 --test6 = TestLabel "Test: check ArithMat" $ (
 --    TestList [
