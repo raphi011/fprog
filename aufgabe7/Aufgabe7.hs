@@ -87,53 +87,99 @@ isPrime x = isPrime' x primes
                            | otherwise = isPrime' n xs
 
 {- filterByMaxLength
- - returns  
+ - compares the length of each grouped sublist and returns
+ - the head element of the sublists that have the most
+ - elements ( maximum length )  
  -}
 filterByMaxLength :: [[a]] -> [a]
 filterByMaxLength l = map head $ filter (\x -> length x == maxLength) l
     where maxLength = length $ maximumBy (comparing length) l
 
+{- get_mdhm
+ - gets all teams that have the most 
+ - prime number rankings
+ -}
 get_mdhm :: Historie -> [Verein]
 get_mdhm h = sort $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPrime) h 
 
+{- isPowerOfTwo
+ - returns True if the value is a power of two 
+ -}
 isPowerOfTwo :: Integer -> Bool
 isPowerOfTwo 0 = False
 isPowerOfTwo 1 = True
 isPowerOfTwo n = ( n `mod` 2 == 0) && isPowerOfTwo (n `div` 2)
 
+{- get_mdhi
+ - gets all teams that finished most often
+ - on a rank of the power of two
+ -}
 get_mdhi :: Historie -> [Verein]
 get_mdhi h = sort $ nub $ filterByMaxLength $ group $ sort $ concat $ map (getVereinWithRank isPowerOfTwo) h 
 
+{- get_pv 
+ - gets all players that were on second place the most
+ - without ever winning
+ -}
 get_pv :: Historie -> [SpielerId]
 get_pv h =  reverse . sort $ filterByMaxLength $ group $ sort badluck
   where winners = nub $ map fst $ concat $ map (getSpielerWithRank (1 ==)) h
         losers = map fst $ concat $ map (getSpielerWithRank (2 ==)) h
         badluck = [ x | x <- losers, not (x `elem` winners) ] 
 
+{- get_ugr
+ - gets the players which were last
+ - the most 
+ -}
 get_ugr :: Historie -> [SpielerId]
 get_ugr h = reverse . sort $ filterByMaxLength $ group $ sort $ map fst $ concat $ map (getSpielerWithRank (lastPlace ==)) h
   where lastPlace = toInteger $ length vereine
 
+{- getTrainerWithRank
+ - gets a list of (TrainerId,Verein) tuples
+ - of all the trainers with a certain rank
+ -}
 getTrainerWithRank :: (Integer -> Bool) -> Saison -> [(TrainerId,Verein)]
 getTrainerWithRank f saison@(_, _, Tr trainer) = map (\x -> (trainer x, x)) $ getVereinWithRank f saison
 
+{- get_tsp
+ - gets every trainer that finished with the rank
+ - 1-3 the most
+ -}
 get_tsp :: Historie -> [TrainerId]
 get_tsp h = sort $ filterByMaxLength $ group $ sort $ map fst $ concat $ map (getTrainerWithRank (`elem` [1,2,3])) h
 
+{- get_taz
+ - gets every trainer that finished with the 
+ - last three ranks the most
+ -}
 get_taz :: Historie -> [TrainerId]
 get_taz h = sort $ filterByMaxLength $ group $ sort $ map fst $ nub $ concat $ map (getTrainerWithRank (`elem` lastThree)) h
   where anzahlVereine = length vereine 
         lastThree = [ fromIntegral x | x <- [anzahlVereine - 2 .. anzahlVereine]]
 
+{- getAllTrainers
+ - gets every trainer of the given season
+ -}
 getAllTrainers :: Saison -> [(TrainerId,Verein)]
 getAllTrainers (_,_, Tr trainer) = map (\x -> (trainer x, x)) vereine
 
+{- get_vsz
+ - returns the teams that relied on the most trainers
+ -}
 get_vsz :: Historie -> [Verein]
 get_vsz h = sort $ map snd $ filterByMaxLength $ groupBy (\x y -> snd x == snd y) $ sortBy (\x y -> compare (snd x) (snd y)) $ nub $ concat $ map getAllTrainers h
 
+{- get_tmv
+ - gets all trainers that coached the most teams
+ -}
 get_tmv :: Historie -> [TrainerId]
 get_tmv h = sort $ map fst $ filterByMaxLength $ groupBy (\x y -> fst x == fst y) $ sort $ nub $ concat $ map getAllTrainers h
 
+{- get_tps
+ - gets all trainers that had the longest 
+ - running careers with one team
+ -}
 get_tps :: Historie -> [TrainerId]
 get_tps h = map fst $ filter (\(_,y) -> y == maxDuration) history3
   where history = groupBy (\x y -> fst x == fst y) $ sortBy (\x y -> compare (fst x) (fst y)) $ concat $ map getAllTrainers h
