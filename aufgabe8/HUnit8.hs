@@ -7,7 +7,10 @@ import Aufgabe8
 import Test.HUnit
 
 
-main = runTestTT $ TestList [test1,test2,test3,test4,test5] --,test6,test7,test8,test9]
+main = runTestTT $ TestList [test1,test2,test3,test4,test5,test6,test7,test8,test9]
+
+
+
 
 test1 = TestLabel "Test: isValidBudget" $ (
     TestList [
@@ -165,34 +168,117 @@ test5 = TestLabel "Test: mkTabelle" $ (
 
 test6 = TestLabel "Test: hm_fix" $ (
     TestList [
+        TestCase $ assertEqual "hm_fix p6 b5 rp4" (NochOffen)
+            (hm_fix p6 b5 rp4),
+        TestCase $ assertEqual "hm_fix p6 b2 rp4" (AlsHMstehtfest WAC)
+            (hm_fix p6 b2 rp4),
+        TestCase $ assertEqual "hm_fix p5 b5 rp4" (NochOffen)
+            (hm_fix p5 b5 rp4),
+        TestCase $ assertEqual "hm_fix p1 b1 rp4" (NochOffen)
+            (hm_fix p1 b1 rp4),
+        TestCase $ assertEqual "hm_fix p1 b2 rp4" (NochOffen)
+            (hm_fix p1 b2 rp4),
+        TestCase $ assertEqual "hm_fix p4 b3 rp4" (NochOffen)
+            (hm_fix p4 b3 rp4),
+        TestCase $ assertEqual "hm_fix p4 b2 rp4" (AlsHMstehtfest WAC)
+            (hm_fix p4 b2 rp4),
+        TestCase $ assertEqual "hm_fix p3 b5 rp4" (NochOffen)
+            (hm_fix p3 b5 rp4),
+        TestCase $ assertEqual "hm_fix p7 b3 rp4" (NochOffen)
+            (hm_fix p7 b3 rp4),
+        TestCase $ assertEqual "hm_fix p7 b2 rp4" (AlsHMstehtfest Sturm)
+            (hm_fix p7 b2 rp4),
+        TestCase $ assertEqual "hm_fix p7 b5 rp4" (NochOffen)
+            (hm_fix p7 b5 rp4)--,
+        --assertError "Ungueltige Eingabe" (hm_fix p5 b5 rp3),
+        --assertError "Ungueltige Eingabe" (hm_fix p5 b4 rp4)
     ]
     )
+
 
 test7 = TestLabel "Test: hm_ausEigenerKraft" $ (
     TestList [
+        TestCase $ assertEqual "hm_ausEigenerKraft p1 b1 rp4" (rEK1 ) 
+            (hm_ausEigenerKraft p1 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p1 b2 rp4" (rEK2 ) 
+            (hm_ausEigenerKraft p1 b2 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p1 b3 rp4" (rEK3 ) 
+            (hm_ausEigenerKraft p1 b3 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p1 b5 rp4" (rEK4 ) 
+            (hm_ausEigenerKraft p1 b5 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p2 b1 rp4" (rEK5 ) 
+            (hm_ausEigenerKraft p2 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p2 b2 rp4" (rEK6 ) 
+            (hm_ausEigenerKraft p2 b2 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p2 b3 rp4" (rEK7 ) 
+            (hm_ausEigenerKraft p2 b3 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p2 b5 rp4" (rEK8 ) 
+            (hm_ausEigenerKraft p2 b5 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p3 b1 rp4" (rEK9 ) 
+            (hm_ausEigenerKraft p3 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p3 b2 rp4" (rEK10) 
+            (hm_ausEigenerKraft p3 b2 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p3 b3 rp4" (rEK11) 
+            (hm_ausEigenerKraft p3 b3 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p3 b5 rp4" (rEK12) 
+            (hm_ausEigenerKraft p3 b5 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p4 b1 rp4" (rEK13) 
+            (hm_ausEigenerKraft p4 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p5 b1 rp4" (rEK14) 
+            (hm_ausEigenerKraft p5 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p7 b1 rp4" (rEK15) 
+            (hm_ausEigenerKraft p7 b1 rp4),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b3 rp5" (rEK16) 
+            (hm_ausEigenerKraft p8 b3 rp5),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b1 rp5" (rEK17) 
+            (hm_ausEigenerKraft p8 b1 rp5),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b2 rp5" (rEK18) 
+            (hm_ausEigenerKraft p8 b2 rp5),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b3 rp6" (rEK19) 
+            (hm_ausEigenerKraft p8 b3 rp6),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b2 rp6" (rEK20) 
+            (hm_ausEigenerKraft p8 b2 rp6),
+        TestCase $ assertEqual "hm_ausEigenerKraft p8 b1 rp6" (rEK21) 
+            (hm_ausEigenerKraft p8 b1 rp6),
+        TestCase $ assertEqual "hm_ausEigenerKraft p9 b6 rp7" (rEK22) 
+            (hm_ausEigenerKraft p9 b6 rp7),
+        TestCase $ assertEqual "hm_ausEigenerKraft p10 b7 rp8" (rEK23) 
+            (hm_ausEigenerKraft p10 b7 rp8)--,
+        --assertError "Ungueltige Eingabe" (hm_ausEigenerKraft p7 b4 rp4),
+        --assertError "Ungueltige Eingabe" (hm_ausEigenerKraft p7 b3 rp3)
     ]
     )
+
 
 test8 = TestLabel "Test: hm_alleMitRechnerischerChance" $ (
     TestList [
+        TestCase $ assertEqual "hm_alleMitRechnerischerChance p16 b16 rp16" (rRC1) 
+            (hm_alleMitRechnerischerChance p16 b16 rp16),
+        TestCase $ assertEqual "hm_alleMitRechnerischerChance p17 b17 rp17" (rRC2) 
+            (hm_alleMitRechnerischerChance p17 b17 rp17)
     ]
     )
+
 
 test9 = TestLabel "Test: vhm_alleMitRechnerischerChance" $ (
     TestList [
+        TestCase $ assertEqual "vhm_alleMitRechnerischerChance p18 b18 rp18" (rVRC1) 
+            (vhm_alleMitRechnerischerChance p18 b18 rp18),
+
+        TestCase $ assertEqual "vhm_alleMitRechnerischerChance p19 b19 rp17" (rVRC2) 
+            (vhm_alleMitRechnerischerChance p19 b19 rp17)
     ]
     )
-
-
 
 
 natToInt :: Nat -> Int
 natToInt Z = 0
 natToInt (S n) = 1 + natToInt n
 
+
 intToNat :: Int -> Nat
 intToNat 0 = Z
-intToNat i = S $ intToNat $ i-1 
+intToNat i = S $ intToNat $ i-1
 
 
 -- Punkte
@@ -208,6 +294,7 @@ p1 Admira = intToNat 100
 p1 Ried = intToNat 100
 p1 Altach = intToNat 100
 
+
 p2 :: Verein -> Nat
 p2 Sturm = intToNat 90
 p2 WAC = intToNat 17
@@ -219,6 +306,7 @@ p2 Rapid = intToNat 64
 p2 Admira = intToNat 84
 p2 Ried = intToNat 12
 p2 Altach = intToNat 95
+
 
 p3 :: Verein -> Nat
 p3 Sturm = intToNat 90
@@ -233,7 +321,95 @@ p3 Ried = intToNat 12
 p3 Altach = intToNat 100
 
 
--- Budget
+p4 :: Verein -> Nat
+p4 Sturm = intToNat 90
+p4 WAC = intToNat 109
+p4 Austria = intToNat 10
+p4 WrNeustadt = intToNat 100
+p4 RBSbg = intToNat 85
+p4 Groedig = intToNat 50
+p4 Rapid = intToNat 64
+p4 Admira = intToNat 84
+p4 Ried = intToNat 12
+p4 Altach = intToNat 100
+
+
+p5 :: Verein -> Nat
+p5 Sturm = intToNat 90
+p5 WAC = intToNat 109
+p5 Austria = intToNat 10
+p5 WrNeustadt = intToNat 101
+p5 RBSbg = intToNat 85
+p5 Groedig = intToNat 50
+p5 Rapid = intToNat 64
+p5 Admira = intToNat 84
+p5 Ried = intToNat 12
+p5 Altach = intToNat 100
+
+
+p6 :: Verein -> Nat
+p6 Sturm = intToNat 90
+p6 WAC = intToNat 109
+p6 Austria = intToNat 10
+p6 WrNeustadt = intToNat 100
+p6 RBSbg = intToNat 85
+p6 Groedig = intToNat 50
+p6 Rapid = intToNat 64
+p6 Admira = intToNat 84
+p6 Ried = intToNat 12
+p6 Altach = intToNat 100
+
+
+p7 :: Verein -> Nat
+p7 Sturm = intToNat 109
+p7 WAC = intToNat 100
+p7 Austria = intToNat 100
+p7 WrNeustadt = intToNat 100
+p7 RBSbg = intToNat 100
+p7 Groedig = intToNat 100
+p7 Rapid = intToNat 100
+p7 Admira = intToNat 100
+p7 Ried = intToNat 100
+p7 Altach = intToNat 100
+
+
+p8 :: Verein -> Nat
+p8 Sturm = intToNat 103
+p8 WAC = intToNat 100
+p8 Austria = intToNat 100
+p8 WrNeustadt = intToNat 100
+p8 RBSbg = intToNat 103
+p8 Groedig = intToNat 100
+p8 Rapid = intToNat 103
+p8 Admira = intToNat 100
+p8 Ried = intToNat 100
+p8 Altach = intToNat 100
+
+
+p9 :: Verein -> Nat
+p9 Sturm = intToNat 103
+p9 WAC = intToNat 100
+p9 Austria = intToNat 100
+p9 WrNeustadt = intToNat 100
+p9 RBSbg = intToNat 100
+p9 Groedig = intToNat 100
+p9 Rapid = intToNat 103
+p9 Admira = intToNat 100
+p9 Ried = intToNat 100
+p9 Altach = intToNat 100
+
+p10 :: Verein -> Nat
+p10 Sturm = intToNat 106
+p10 WAC = intToNat 1
+p10 Austria = intToNat 1
+p10 WrNeustadt = intToNat 1
+p10 RBSbg = intToNat 1
+p10 Groedig = intToNat 1
+p10 Rapid = intToNat 100
+p10 Admira = intToNat 1
+p10 Ried = intToNat 1
+p10 Altach = intToNat 1
+
 b1 :: Verein -> Nat
 b1 Sturm = intToNat 10
 b1 WAC = intToNat 9
@@ -245,6 +421,7 @@ b1 Rapid = intToNat 4
 b1 Admira = intToNat 3
 b1 Ried = intToNat 2
 b1 Altach = intToNat 1
+
 
 b2 :: Verein -> Nat
 b2 Sturm = intToNat 1
@@ -258,6 +435,7 @@ b2 Admira = intToNat 8
 b2 Ried = intToNat 9
 b2 Altach = intToNat 10
 
+
 b3 :: Verein -> Nat
 b3 Sturm = intToNat 4
 b3 WAC = intToNat 3
@@ -269,6 +447,7 @@ b3 Rapid = intToNat 6
 b3 Admira = intToNat 8
 b3 Ried = intToNat 7
 b3 Altach = intToNat 9
+
 
 b4 :: Verein -> Nat
 b4 Sturm = intToNat 10
@@ -283,11 +462,67 @@ b4 Ried = intToNat 10
 b4 Altach = intToNat 10
 
 
+b5 :: Verein -> Nat
+b5 Sturm = intToNat 4
+b5 WAC = intToNat 3
+b5 Austria = intToNat 5
+b5 WrNeustadt = intToNat 2
+b5 RBSbg = intToNat 10
+b5 Groedig = intToNat 11
+b5 Rapid = intToNat 6
+b5 Admira = intToNat 8
+b5 Ried = intToNat 7
+b5 Altach = intToNat 1
+
+
+b6 :: Verein -> Nat
+b6 Sturm = intToNat 3
+b6 WAC = intToNat 6
+b6 Austria = intToNat 5
+b6 WrNeustadt = intToNat 1
+b6 RBSbg = intToNat 10
+b6 Groedig = intToNat 11
+b6 Rapid = intToNat 4
+b6 Admira = intToNat 8
+b6 Ried = intToNat 7
+b6 Altach = intToNat 2
+
+
+b7 :: Verein -> Nat
+b7 Sturm = intToNat 3
+b7 WAC = intToNat 6
+b7 Austria = intToNat 5
+b7 WrNeustadt = intToNat 4
+b7 RBSbg = intToNat 10
+b7 Groedig = intToNat 11
+b7 Rapid = intToNat 1
+b7 Admira = intToNat 8
+b7 Ried = intToNat 7
+b7 Altach = intToNat 2
+
+b8 :: Verein -> Nat
+b8 Sturm = intToNat 100
+b8 WAC = intToNat 6
+b8 Austria = intToNat 5
+b8 WrNeustadt = intToNat 4
+b8 RBSbg = intToNat 10
+b8 Groedig = intToNat 11
+b8 Rapid = intToNat 1
+b8 Admira = intToNat 8
+b8 Ried = intToNat 7
+b8 Altach = intToNat 2
+
+
 --Restprogramme
 rp1 = (Rp st1 st1 st1)
 rp2 = (Rp st1 st1 st5)
 rp3 = (Rp st5 st6 st7)
 rp4 = (Rp st5 st8 st9)
+rp5 = (Rp st10 st8 st9)
+rp6 = (Rp st10 st8 st11)
+rp7 = (Rp st13 st12 st14)
+rp8 = (Rp st13 st15 st14)
+
 
 
 -- Spieltage
@@ -301,6 +536,127 @@ st7 = St (s4,s13,s46,s68,s90)
 st8 = St (s5,s16,s27,s38,s99)
 st9 = St (s6,s15,s28,s39,s70)
 
+
+st10 = St (s2, s24, s47, s58, s90)
+st11 = St (s7, s15, s28, s39, s60)
+st12 = St (s10, s16, s27, s38, s85)
+st13 = St (s2, s24, s49, s58, s97)
+st14 = St (s7, s15, s28, s40, s59)
+st15 = St (s61, s16, s30, s38, s85)
+
+rp16 = (Rp st161 st16 st162)
+
+st161 = St (s2, s24, s47, s58, s90)
+st162 = St (s7, s15, s28, s39, s60)
+st16  = St (s5, s17, s26, s38, s99)
+
+p16 :: Verein -> Nat
+p16 Sturm       = intToNat 103
+p16 Groedig     = intToNat 103
+p16 WAC         = intToNat 100
+p16 Rapid       = intToNat 97
+p16 RBSbg       = intToNat 96
+p16 Austria     = intToNat 94
+p16 Admira      = intToNat 93
+p16 WrNeustadt  = intToNat 90
+p16 Ried        = intToNat 93
+p16 Altach      = intToNat 90
+
+b16 :: Verein -> Nat
+b16 Sturm       = intToNat 6
+b16 Groedig     = intToNat 7
+b16 WAC         = intToNat 4
+b16 Rapid       = intToNat 3
+b16 RBSbg       = intToNat 8
+b16 Austria     = intToNat 2
+b16 Admira      = intToNat 1
+b16 WrNeustadt  = intToNat 10
+b16 Ried        = intToNat 11
+b16 Altach      = intToNat 9
+
+rp17 = (Rp st171 st17 st172)
+
+st171 = St (s2, s24, s50, s58, s87)
+st172 = St (s7, s15, s28, s39, s60)
+st17  = St (s5, s17, s26, s38, s99)
+
+p17 :: Verein -> Nat
+p17 Sturm       = intToNat 103
+p17 Groedig     = intToNat 103
+p17 WAC         = intToNat 100
+p17 Rapid       = intToNat 97
+p17 RBSbg       = intToNat 96
+p17 Austria     = intToNat 94
+p17 Admira      = intToNat 93
+p17 WrNeustadt  = intToNat 90
+p17 Ried        = intToNat 93
+p17 Altach      = intToNat 90
+
+b17 :: Verein -> Nat
+b17 Sturm       = intToNat 6
+b17 Groedig     = intToNat 7
+b17 WAC         = intToNat 4
+b17 Rapid       = intToNat 3
+b17 RBSbg       = intToNat 8
+b17 Austria     = intToNat 2
+b17 Admira      = intToNat 1
+b17 WrNeustadt  = intToNat 10
+b17 Ried        = intToNat 11
+b17 Altach      = intToNat 9
+
+rp18 = (Rp st171 st17 st172)
+
+st181 = St (s2, s24, s50, s58, s87)
+st182 = St (s7, s15, s28, s39, s60)
+st18  = St (s5, s17, s26, s38, s99)
+
+p18 :: Verein -> Nat
+p18 Sturm       = intToNat 103
+p18 Groedig     = intToNat 103
+p18 WAC         = intToNat 100
+p18 Rapid       = intToNat 97
+p18 RBSbg       = intToNat 96
+p18 Austria     = intToNat 94
+p18 Admira      = intToNat 94
+p18 WrNeustadt  = intToNat 90
+p18 Ried        = intToNat 93
+p18 Altach      = intToNat 90
+
+b18 :: Verein -> Nat
+b18 Sturm       = intToNat 7
+b18 Groedig     = intToNat 8
+b18 WAC         = intToNat 5
+b18 Rapid       = intToNat 4
+b18 RBSbg       = intToNat 9
+b18 Austria     = intToNat 2
+b18 Admira      = intToNat 3
+b18 WrNeustadt  = intToNat 11
+b18 Ried        = intToNat 12
+b18 Altach      = intToNat 10
+
+b19 :: Verein -> Nat
+b19 Sturm       = intToNat 7
+b19 Groedig     = intToNat 8
+b19 WAC         = intToNat 1
+b19 Rapid       = intToNat 4
+b19 RBSbg       = intToNat 9
+b19 Austria     = intToNat 2
+b19 Admira      = intToNat 3
+b19 WrNeustadt  = intToNat 11
+b19 Ried        = intToNat 12
+b19 Altach      = intToNat 10
+
+p19 :: Verein -> Nat
+p19 Sturm = intToNat 90
+p19 WAC = intToNat 109
+p19 Austria = intToNat 10
+p19 WrNeustadt = intToNat 100
+p19 RBSbg = intToNat 85
+p19 Groedig = intToNat 50
+p19 Rapid = intToNat 64
+p19 Admira = intToNat 84
+p19 Ried = intToNat 12
+p19 Altach = intToNat 100
 
 -- Spiele
 s1 = (Sturm,Sturm)
@@ -412,3 +768,35 @@ rMT3 = [Groedig,WrNeustadt,WAC,Sturm,Austria,Rapid,Ried,Admira,Altach,RBSbg]
 rMT4 = [WrNeustadt,Altach,Sturm,RBSbg,Admira,Rapid,Groedig,WAC,Ried,Austria]
 rMT5 = [Altach,WrNeustadt,Sturm,RBSbg,Admira,Rapid,Groedig,WAC,Ried,Austria]
 rMTE = []
+
+
+rEK1  = [Altach,Ried]
+rEK2  = [Sturm,WAC]
+rEK3  = [Groedig]
+rEK4  = [Altach]
+rEK5  = [WrNeustadt]
+rEK6  = [WrNeustadt]
+rEK7  = [WrNeustadt]
+rEK8  = [WrNeustadt]
+rEK9  = [Altach]
+rEK10 = [WrNeustadt]
+rEK11 = [WrNeustadt]
+rEK12 = [Altach]
+rEK13 = [WAC]
+rEK14 = [WAC]
+rEK15 = [Sturm]
+rEK16 = [Sturm,RBSbg]
+rEK17 = [Rapid,RBSbg]
+rEK18 = [Sturm,RBSbg]
+rEK19 = [Sturm,Rapid,RBSbg]
+rEK20 = [Sturm,RBSbg,Rapid]
+rEK21 = [Rapid,RBSbg,Sturm]
+rEK22 = [Altach,Sturm,Rapid]
+rEK23 = [Rapid,Sturm]
+rEKE  = []
+
+rRC1 = [Rapid,WAC,Sturm,Groedig,RBSbg]
+rRC2 = [Austria,Rapid,WAC,Sturm,Groedig,RBSbg]
+
+rVRC1 = [Austria,Admira,Rapid,WAC,Sturm,Groedig,RBSbg]
+rVRC2 = [Altach,WrNeustadt]
